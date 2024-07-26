@@ -4,7 +4,7 @@ from .src.analysis import analysis2
 
 # Create your views here.
 async def LoadDataOrg(request): 
-    data = await analysis2.GetDataOrg('Apple')
+    data = await analysis2.GetDataOrg('microsoft')
     return JsonResponse(data)
 
 

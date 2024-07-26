@@ -43,6 +43,11 @@ async function CreateOrgInformation() {
                 <ion-icon name="information-circle-outline"></ion-icon>
                 <p><span class="text">Description: </span>${data.description}</p>
             </div>
+
+            <div class="memeber box">
+                <ion-icon name="people-outline"></ion-icon>
+                <p><span class="text">Members: </span>${data.members}</p>
+            </div>
         </div>
     `
 }

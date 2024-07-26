@@ -39,4 +39,17 @@ async def fetchOrgInfo(orgname):
         if e in list: 
             Infor.update({e : data[e]})
     
+    # get members
+    perpage = 100
+    page = 1
+    countMem = 0
+    while (True): 
+        data = await fetchAPI(f'https://api.github.com/orgs/{orgname}/members?per_page={perpage}&page={page}')
+        members = np.array(data)
+        if (members.size == 0): break 
+        countMem += members.size
+        page += 1
+    
+    Infor.update({'members' : countMem})
+
     return Infor

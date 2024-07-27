@@ -63,7 +63,7 @@ async function RepoCommmitsGraph() {
     let Commits = Object.values(commitLine)
     console.log(Months)
     console.log(Commits)
-    const char = document.getElementById('myChart1');
+    const char = document.getElementById('myChart2');
 
     new Chart(char, {
       type: 'line',
@@ -102,7 +102,7 @@ async function RepoIssuesGraph() {
   let Issues = Object.values(issuesLine)
   console.log(Months)
   console.log(Issues)
-  const chart = document.getElementById('myChart2');
+  const chart = document.getElementById('myChart3');
 
   new Chart(chart, {
     type: 'line',
@@ -131,4 +131,43 @@ async function RepoIssuesGraph() {
   });
 }
 
-RepoIssuesGraph()
+// RepoIssuesGraph()
+
+
+// DRAW LINE GRAPH FOR PULL REQUEST IN 6 MONTHS 
+async function RepoPullsGraph() {
+  const pullsLine = await fetchAPI(`${PORT}/repo/pulls`)
+  let Months = Object.keys(pullsLine)
+  let Pulls = Object.values(pullsLine)
+  console.log(Months)
+  console.log(Pulls)
+  const ch = document.getElementById('myChart4');
+
+  new Chart(ch, {
+    type: 'line',
+    data: {
+      labels: Months,
+      datasets: [{
+          label: 'Total pulls',
+          data: Pulls,
+          fill: false,
+          borderColor: 'rgb(60, 59, 110)',
+          tension: 0.1,
+      }],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'PULL REQUESTS WITHIN RECENT 6 MONTHS'
+        }
+      }
+    },
+  });
+}
+
+RepoPullsGraph()

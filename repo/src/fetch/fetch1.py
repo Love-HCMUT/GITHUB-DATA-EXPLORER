@@ -128,3 +128,38 @@ async def fetchRepoIssues(username, reponame):
         issuesLine.update({month_name : issues})
 
     return issuesLine
+
+
+# FETCH PULL REQUEST WITHIN RECENT 6 MONTHS 
+async def fetchRepoPulls(username, reponame): 
+    RequestLine = {}
+    page = 1
+    perpage = 100
+    count = 0
+    previous_months = datetime.now(pytz.UTC).strftime('%B') #curent month 
+    while (True): 
+        data = await fetchAPI(f'https://api.github.com/repos/{username}/{reponame}/pulls?per_page={perpage}&page={page}')
+        list = np.array(data)
+        if (list.size == 0): 
+            RequestLine.update({previous_months : count})
+            break
+        page += 1
+       
+        for e in list: 
+            createAt = e['created_at']
+            date = datetime.strptime(createAt, "%Y-%m-%dT%H:%M:%SZ")
+            month_name = date.strftime("%B")
+            if (month_name != previous_months): 
+                RequestLine.update({previous_months : count})
+                previous_months = month_name
+                count = 0
+            count += 1
+
+    current_date = datetime.now()
+    months = [(current_date - relativedelta(months=(i))).strftime("%B") for i in range(6)]
+    ReponseData = { e : 0 for e in months }
+    for key, value in RequestLine.items():
+        if key in ReponseData:
+            ReponseData[key] = value
+
+    return ReponseData

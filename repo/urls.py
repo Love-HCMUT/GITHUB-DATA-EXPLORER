@@ -23,5 +23,5 @@ urlpatterns = [
     path('contributor/', views.GetRepoData),
     path('commit/', views.GetRepoData2),
     path('issues/', views.GetRepoData3),
-
+    path('pulls/', views.GetRepoData4)
 ]

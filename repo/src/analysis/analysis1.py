@@ -13,3 +13,8 @@ async def GetRepoCommits(username, reponame):
 async def GetRepoIssues(username, reponame):
     data = await fetch1.fetchRepoIssues(username, reponame)
     return data 
+
+
+async def GetRepoPulls(username, reponame):
+    data = await fetch1.fetchRepoPulls(username, reponame)
+    return data 

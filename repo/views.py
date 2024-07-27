@@ -20,7 +20,7 @@ async def GetRepoData(request):
 # Get Commit from repo
 async def GetRepoData2(request):
     try: 
-        data = await analysis1.GetRepoCommits('krahets', 'hello-algo')
+        data = await analysis1.GetRepoCommits('TickLabVN', 'monitoring-example')
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
@@ -30,6 +30,14 @@ async def GetRepoData2(request):
 async def GetRepoData3(request):
     try: 
         data = await analysis1.GetRepoIssues('krahets', 'hello-algo')
+        return JsonResponse(data, status=200)
+    except Exception as e:
+        return HttpResponse(status=404)
+    
+# Get Pull request from repo
+async def GetRepoData4(request):
+    try: 
+        data = await analysis1.GetRepoPulls('krahets', 'hello-algo')
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)

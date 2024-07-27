@@ -90,6 +90,41 @@ async def fetchRepoCommits(username, reponame):
     return commitLine
 
 
+#FETCH ISSUES SINCE 
+async def fetchRepoIssuesSince(username, reponame, since):
+    page = 1
+    perpage = 100 
+    count = 0
+    while (True): 
+        data = await fetchAPI(f'https://api.github.com/repos/{username}/{reponame}/issues?since={since}&per_page={perpage}&page={page}')
+        list = np.array(data)
+        if (list.size == 0): break
+        count += list.size
+        page += 1
+    return count 
 
 
+# FETCH ISSUES WITHIN RECENT 6 MONTHS 
+async def fetchRepoIssues(username, reponame): 
+    issuesLine = {} 
+    since = datetime.now(pytz.UTC) # get current date 
+    temp = since # mark current date
+    since = since.replace(day=1, hour=0, minute=0, second=0, microsecond=0) #get beginning of current months 
+    month_name = since.strftime('%B')  #get name of months
+    since = since.strftime('%Y-%m-%dT%H:%M:%SZ')  #format string 
+    issues = await fetchRepoIssuesSince(username, reponame, since)
+    issuesLine.update({month_name : issues})
+    
+    previous_count = issues #previous months 
 
+    for i in range(5):
+        since = temp # get the beginning of current month
+        since = since - relativedelta(months=(i+1))  # i months ago 
+        month_name = since.strftime('%B')  #get name of months
+        since = since.strftime('%Y-%m-%dT%H:%M:%SZ')  #format string 
+        issues = await fetchRepoIssuesSince(username, reponame, since)  #calculate i months ago
+        issues -= previous_count     
+        previous_count += issues
+        issuesLine.update({month_name : issues})
+
+    return issuesLine

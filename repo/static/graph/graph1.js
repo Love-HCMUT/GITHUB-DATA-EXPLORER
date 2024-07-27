@@ -92,6 +92,43 @@ async function RepoCommmitsGraph() {
     });
 }
 
-RepoCommmitsGraph()
+// RepoCommmitsGraph()
 
 
+// DRAW LINE GRAPH FOR ISSUES IN 6 MONTHS 
+async function RepoIssuesGraph() {
+  const issuesLine = await fetchAPI(`${PORT}/repo/issues`)
+  let Months = Object.keys(issuesLine)
+  let Issues = Object.values(issuesLine)
+  console.log(Months)
+  console.log(Issues)
+  const chart = document.getElementById('myChart2');
+
+  new Chart(chart, {
+    type: 'line',
+    data: {
+      labels: Months,
+      datasets: [{
+          label: 'Total issues',
+          data: Issues,
+          fill: false,
+          borderColor: 'rgb(255, 205, 86)',
+          tension: 0.1,
+      }],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'ISSUES WITHIN RECENT 6 MONTHS'
+        }
+      }
+    },
+  });
+}
+
+RepoIssuesGraph()

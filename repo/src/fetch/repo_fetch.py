@@ -92,6 +92,44 @@ async def fetch_user_repos_name(username):
     for repo in repos:
         if not repo['fork']:
             data.append(repo['name'])
-    return data
+    return 
 
-# print(asyncio.run(fetch_repo_branches_name('krahets', 'hello-algo')))
+async def get_user_languages(username):
+    """
+    Get information about the user's languages.
+    :param username: The handle for the GitHub user account.
+    :return: a dictionary contains languages and corresponding percentages
+    """
+    repos = await fetch_user_repos_name(username)
+    languages = {}
+    for repo in repos:
+        data = await fetch_repo_languages(username, repo)
+        for key, value in data.items():
+            languages[key] = languages.get(key, 0) + value
+    total = sum(languages.values())
+    for language, byte in languages.items():
+        percent = round((byte / total) * 100, 1)
+        languages.update({language: percent})
+    return languages
+
+async def get_top_contributors_languages(owner, repo, DEMAND = 3):
+    """
+    Get information about languages of some top contributors.
+    :param owner: The account owner of the repository. The name is not case sensitive.
+    :param repo: The name of the repository without the .git extension. The name is not case sensitive.
+    :param DEMAND: The number of contributors
+    :return: a dictionary contains user and user's languages.
+    """
+    contributors = await fetch_repo_contributors(owner, repo)
+    number = len(contributors) if len(contributors) < DEMAND else DEMAND
+    contributors = dict(sorted(contributors.items(), key = lambda item: item[1], reverse = True)[:number])
+    result = {}
+    for contributor in contributors:
+        languages = await get_user_languages(contributor)
+        result.update({contributor: languages})
+    
+    return result
+
+# print(asyncio.run(get_top_contributors_languages('krahets', 'hello-algo')))
+for _ in range(60):
+    print(asyncio.run(fetch_repo_languages('krahets', 'hello-algo')))

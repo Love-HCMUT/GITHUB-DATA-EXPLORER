@@ -1,0 +1,59 @@
+:root {
+    --orange: #ff7800;
+    --black: #130f40; 
+    --light-color: #666; 
+    --border:.2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 .5rem 1.5rem rgba(0,0,0,0.1); 
+    --outline: .1rem solid rgba(0,0,0,.4);
+    --outline-hover: .2rem solid var(--black);
+}
+
+* {
+    font-family: 'Amazon Ember V2', sans-serif;
+    font-style: normal;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+html {
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+}
+
+.languages_repo {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.repo-info {
+    display: flex;
+    margin-top: 1.5rem;
+    background-color: bisque;
+    outline: var(--outline);
+    border-radius: 8px;
+    flex-direction: column;
+}
+
+.repo-info div {
+    margin: 8px;
+    display: flex;
+}
+
+.repo-info div ion-icon {
+    margin-right: 4px;
+}
+
+.repo-info div span {
+    min-width: 40%;
+}
+
+.repo-info div p {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}

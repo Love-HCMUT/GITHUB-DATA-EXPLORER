@@ -33,7 +33,7 @@ async def fetch_repo_languages(owner, repo):
     :param repo: The name of the repository without the .git extension. The name is not case sensitive.
     :return: a dictionary contains infomation about languages of the repo.
     """
-    url = f'http://api.github.com/repos/{owner}/{repo}/languages'
+    url = f'https://api.github.com/repos/{owner}/{repo}/languages'
     data = await fetchAPI(url)
     return data
     
@@ -44,7 +44,7 @@ async def fetch_repo_info(owner, repo):
     :param repo: The name of the repository without the .git extension. The name is not case sensitive.
     :return: a dictionary contains infomation about stargazers_count, forks_count, watchers_count, open_issues_count, subscribers_count, description, default_branch
     """
-    url = f'http://api.github.com/repos/{owner}/{repo}'
+    url = f'https://api.github.com/repos/{owner}/{repo}'
     repo_info = await fetchAPI(url)
     keys = ('stargazers_count', 'forks_count', 'watchers_count', 'open_issues_count', 'subscribers_count', 'description', 'default_branch')
     data = {}
@@ -59,7 +59,7 @@ async def fetch_repo_branches_name(owner, repo):
     :param repo: The name of the repository without the .git extension. The name is not case sensitive.
     :return: a list contains name of all branch.
     """
-    url = f'http://api.github.com/repos/{owner}/{repo}/branches'
+    url = f'https://api.github.com/repos/{owner}/{repo}/branches'
     branches = await fetchAPI(url)
     data = []
     for branch in branches:
@@ -73,7 +73,7 @@ async def fetch_repo_contributors(owner, repo):
     :param repo: The name of the repository without the .git extension. The name is not case sensitive.
     :return: a dictionary contains infomation about contributors and their contributions
     """
-    url = f'http://api.github.com/repos/{owner}/{repo}/contributors'
+    url = f'https://api.github.com/repos/{owner}/{repo}/contributors'
     contributors = await fetchAPI(url)
     data = {}
     for contributor in contributors:
@@ -86,7 +86,7 @@ async def fetch_user_repos_name(username):
     :param username: The handle for the GitHub user account.
     :return: a list contains name of all repos
     """
-    url = f'http://api.github.com/users/{username}/repos'
+    url = f'https://api.github.com/users/{username}/repos'
     repos = await fetchAPI(url)
     data = []
     for repo in repos:
@@ -129,7 +129,3 @@ async def get_top_contributors_languages(owner, repo, DEMAND = 3):
         result.update({contributor: languages})
     
     return result
-
-# print(asyncio.run(get_top_contributors_languages('krahets', 'hello-algo')))
-for _ in range(60):
-    print(asyncio.run(fetch_repo_languages('krahets', 'hello-algo')))

@@ -80,30 +80,33 @@ async def fetch_repo_contributors(owner, repo):
         data.update({contributor['login']: contributor['contributions']})
     return data
 
-async def fetch_user_repos_name(username):
+async def fetch_repos_name(name, org = False):
     """
     Get list public repositories for the specified user.
-    :param username: The handle for the GitHub user account.
+    :param name: The handle for the GitHub user account or name of organization.
+    :param org: Check if name is username or orgname
     :return: a list contains name of all repos
     """
-    url = f'https://api.github.com/users/{username}/repos'
+    url = f'https://api.github.com/users/{name}/repos'
+    if org:
+        url = f'https://api.github.com/orgs/{name}/repos'
     repos = await fetchAPI(url)
     data = []
     for repo in repos:
         if not repo['fork']:
             data.append(repo['name'])
-    return 
+    return data
 
-async def get_user_languages(username):
+async def get_languages(name, org = False):
     """
     Get information about the user's languages.
-    :param username: The handle for the GitHub user account.
+    :param name: The handle for the GitHub user account or name of organization.
     :return: a dictionary contains languages and corresponding percentages
     """
-    repos = await fetch_user_repos_name(username)
+    repos = await fetch_repos_name(name, org)
     languages = {}
     for repo in repos:
-        data = await fetch_repo_languages(username, repo)
+        data = await fetch_repo_languages(name, repo)
         for key, value in data.items():
             languages[key] = languages.get(key, 0) + value
     total = sum(languages.values())
@@ -125,7 +128,7 @@ async def get_top_contributors_languages(owner, repo, DEMAND = 3):
     contributors = dict(sorted(contributors.items(), key = lambda item: item[1], reverse = True)[:number])
     result = {}
     for contributor in contributors:
-        languages = await get_user_languages(contributor)
+        languages = await get_languages(contributor)
         result.update({contributor: languages})
     
     return result

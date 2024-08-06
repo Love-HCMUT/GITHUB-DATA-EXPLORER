@@ -6,7 +6,7 @@ import numpy as np
 import pytz
 import requests
 
-TOKEN = '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'
+TOKEN = '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'
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
@@ -24,10 +24,11 @@ async def fetchAPI(urls):
                 else:
                     print(f"Error: {response.status}, {await response.text()}")
                     return None
-        except requests.exceptions.HTTPError as http_err:
+        except aiohttp.ClientResponseError as http_err:
             print(f"HTTP error occurred: {http_err}")
         except Exception as err:
             print(f"An error has occurred: {err}")
+
 
 
 #GET 10 GREATEST CONTRIBUTORS 
@@ -130,6 +131,18 @@ async def fetchRepoIssues(username, reponame):
     return issuesLine
 
 
+# input: a dict contain data for each month, number of months need to analysis
+# output: a dict contain data for each month 
+def CreateListOfMonth(data, numberOfMonths): 
+    current_date = datetime.now()
+    months = [(current_date - relativedelta(months=(numberOfMonths-i-1))).strftime("%B") for i in range(numberOfMonths)]
+    ReponseData = { e : 0 for e in months }
+    for key, value in data.items():
+        if key in ReponseData:
+            ReponseData[key] = value
+    return ReponseData
+
+
 # FETCH PULL REQUEST WITHIN RECENT 6 MONTHS 
 async def fetchRepoPulls(username, reponame): 
     RequestLine = {}
@@ -155,11 +168,5 @@ async def fetchRepoPulls(username, reponame):
                 count = 0
             count += 1
 
-    current_date = datetime.now()
-    months = [(current_date - relativedelta(months=(i))).strftime("%B") for i in range(6)]
-    ReponseData = { e : 0 for e in months }
-    for key, value in RequestLine.items():
-        if key in ReponseData:
-            ReponseData[key] = value
-
+    ReponseData = CreateListOfMonth(RequestLine, 6)
     return ReponseData

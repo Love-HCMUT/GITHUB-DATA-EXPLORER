@@ -8,9 +8,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
 </head>
 <body>
-    <h1>DUONG HAI LAM</h1>
-    <script type="module" src="{% static 'js/script.js'%}"></script>
-    {% comment %} <script type="module" src="{%static 'js/fetchData.js'%}"></script> {% endcomment %}
+    <canvas class="" id="myChart4"></canvas>
+    
+
+    {% comment %} chart.js {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="module" src="{% static 'fetch/fetchUser.js' %}"></script>
+    <script type="module" src="{% static 'graph/graphUser.js' %}"></script>
 
 </body>
 </html>

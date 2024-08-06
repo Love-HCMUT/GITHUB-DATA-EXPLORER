@@ -53,7 +53,8 @@ async function RepoContributorGraph() {
         }
       });
 }
-// RepoContributorGraph()
+
+RepoContributorGraph()
 
 
 // DRAW LINE GRAPH FOR COMMIT IN 6 MONTHS 
@@ -92,7 +93,7 @@ async function RepoCommmitsGraph() {
     });
 }
 
-// RepoCommmitsGraph()
+RepoCommmitsGraph()
 
 
 // DRAW LINE GRAPH FOR ISSUES IN 6 MONTHS 
@@ -131,7 +132,7 @@ async function RepoIssuesGraph() {
   });
 }
 
-// RepoIssuesGraph()
+RepoIssuesGraph()
 
 
 // DRAW LINE GRAPH FOR PULL REQUEST IN 6 MONTHS 
@@ -152,7 +153,7 @@ async function RepoPullsGraph() {
           data: Pulls,
           fill: false,
           borderColor: 'rgb(60, 59, 110)',
-          tension: 0.1,
+          tension: 0.3,
       }],
     },
     options: {

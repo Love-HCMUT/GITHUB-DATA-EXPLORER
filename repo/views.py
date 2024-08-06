@@ -20,7 +20,7 @@ async def GetRepoData(request):
 # Get Commit from repo
 async def GetRepoData2(request):
     try: 
-        data = await analysis1.GetRepoCommits('TickLabVN', 'monitoring-example')
+        data = await analysis1.GetRepoCommits('RavenTheshadow', 'BTL_LTNC')
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)

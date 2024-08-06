@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <!-- icon -->
     <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
@@ -125,5 +126,27 @@
         <!-- script js -->
         <script type="module" src="{% static 'fetch/fetchOrg.js' %}"></script>
         <script type="module" src="{% static 'graph/graphOrg.js' %}"></script>
+
+
+    {% comment %} <link rel = "stylesheet" href = "{% static 'css/org_style.css' %}"></link>
+    <title>Document</title>
+</head>
+<body>
+    <div class = "languages chart">
+        <canvas id = "languages"></canvas>
+    </div>
+
+    <div class = "contributions chart">
+        <canvas id = "contributions"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <script type="module" src="{% static 'graph/org_languages.js' %}"></script>
+    <script type="module" src="{% static 'graph/org_contributions.js' %}"></script> {% endcomment %}
+
 </body>
 </html>

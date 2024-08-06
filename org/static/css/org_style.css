@@ -1,0 +1,36 @@
+:root {
+    --orange: #ff7800;
+    --black: #130f40; 
+    --light-color: #666; 
+    --border:.2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 .5rem 1.5rem rgba(0,0,0,0.1); 
+    --outline: .1rem solid rgba(0,0,0,.4);
+    --outline-hover: .2rem solid var(--black);
+    --dark-blue: #132D65;
+    --light-blue: #0073B1;
+}
+
+* {
+    font-family: 'Amazon Ember V2', sans-serif;
+    font-style: normal;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+html {
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+}
+
+.chart {
+    min-width: 500px;
+    max-width: 1000px;
+    min-height: 300px;
+    max-height: 500px;
+    margin: 16px;
+}

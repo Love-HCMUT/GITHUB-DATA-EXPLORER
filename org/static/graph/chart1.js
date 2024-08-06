@@ -1,6 +1,6 @@
 import { fetchAPI } from "../fetch/fetchdata1.js";
 
-const PORT = "http://127.0.0.1:8000";
+const PORT = "http://127.0.0.1:3000";
 
 async function CreateOrgInformation() {
     // Fetch data from the API

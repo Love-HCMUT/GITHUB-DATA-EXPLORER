@@ -47,8 +47,9 @@
             <div class="main-info">
 
                 <div class="org-data">
-
-                    <div class="part1">           
+                    <div class="user-data"></div>
+                    
+                    {% comment %} <div class="part1">           
                         <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/Hinh-nen-anime-cute-8-1.jpg" alt="">
                     </div>
             
@@ -100,7 +101,7 @@
                             <p><span class="text">Members: </span>10</p>
                         </div>
             
-                    </div>
+                    </div> {% endcomment %}
             
                 </div>
 
@@ -118,7 +119,7 @@
                         <span>Languages in all repositories</span>
                    </div>
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
+                        <canvas class="" id="myChart1"></canvas>
                     </div>
                 </div>
 
@@ -128,8 +129,8 @@
                         <span>The most recent use languages</span>
                     </div>
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
-                        <canvas id="myChart2"></canvas>
+                        {% comment %} <canvas id="myChart2"></canvas> {% endcomment %}
+                        <canvas id = "languages"></canvas>
                     </div>
                 </div>
 
@@ -148,7 +149,7 @@
                    </div>
 
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
+                        <canvas class="" id="myChart2"></canvas>
                     </div>
                 </div>
 
@@ -174,18 +175,18 @@
                    </div>
                 
                    <div class="chart-img">
-                        {% comment %} <table id="myTable" class="display" style="width:100%">
+                        <table id="myTable" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Extn.</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Contributor</th>
+                                    <th>Language (%)</th>
+                                    <th>Start</th>
+                                    <th>Pull request</th>
+                                    <th>Merge pull request</th>
                                 </tr>
                             </thead>
-                        </table> {% endcomment %}
+                        </table>
                     </div>
 
                 </div>
@@ -209,6 +210,9 @@
         <!-- script js -->
         <script type="module" src="{% static 'fetch/fetchUser.js' %}"></script>
         <script type="module" src="{% static 'graph/graphUser.js' %}"></script>
+        <script type="module" src="{% static 'graph/user_languages.js' %}"></script>
+        <script type="module" src="{% static 'graph/chart.js' %}"></script>
+        <script type="module" src="{% static 'fetch/fetchdata.js' %}"></script>
 
     {% comment %} <link rel = "stylesheet" href = "{% static 'css/repo_style.css' %}"></link>
     <title>Document</title>

@@ -63,7 +63,7 @@
                         <span>Contributions within recent 6 months</span>
                    </div>
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
+                        <canvas id = "contributions"></canvas>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
                         <span>Contributions of top members</span>
                     </div>
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
+                        <div class="img1"><canvas class="" id="myChart1"></canvas></div>
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
 
             <span class="topic-chart" id="language">Program Languages</span>
 
-            {% comment %} CONTRIBUTORS {% endcomment %}
+            {% comment %} LANGUAGE {% endcomment %}
             <div class="box-chart-line">
                 {% comment %} Top 10 contributors {% endcomment %}
                 <div class="chart">
@@ -92,7 +92,7 @@
                    </div>
 
                     <div class="chart-img">
-                        <canvas class="" id="Contributor"></canvas> 
+                        {% comment %} <canvas class="" id="Contributor"></canvas>  {% endcomment %}
                     </div>
                 </div>
 
@@ -102,7 +102,7 @@
                         <span>Language of each contributor</span>
                    </div>
                     <div class="chart-img">
-                        {% comment %} put chart here {% endcomment %}
+                        <canvas id = "languages"></canvas>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,10 @@
         <!-- script js -->
         <script type="module" src="{% static 'fetch/fetchOrg.js' %}"></script>
         <script type="module" src="{% static 'graph/graphOrg.js' %}"></script>
-
+        <script type="module" src="{% static 'graph/chart1.js' %}"></script>
+        <script type="module" src="{% static 'fetch/fetchdata1.js' %}"></script>
+        <script type="module" src="{% static 'graph/org_languages.js' %}"></script>
+        <script type="module" src="{% static 'graph/org_contributions.js' %}"></script>
 
     {% comment %} <link rel = "stylesheet" href = "{% static 'css/org_style.css' %}"></link>
     <title>Document</title>

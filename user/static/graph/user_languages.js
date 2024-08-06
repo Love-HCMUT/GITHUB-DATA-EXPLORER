@@ -1,6 +1,6 @@
 let chart_contributions = document.querySelector('#languages')
 
-const PORT = "http://127.0.0.1:8000";
+const PORT = "http://127.0.0.1:3000";
 let url = `${PORT}/user/languages/KietCSE`;
 
 let xValues = [], yValues = [];

@@ -1,6 +1,6 @@
 let chart = document.querySelector('#contributors');
 
-const PORT = "http://127.0.0.1:8000";
+const PORT = "http://127.0.0.1:3000";
 let url = `${PORT}/repo/contributors/krahets/hello-algo`;
 
 fetch(url)

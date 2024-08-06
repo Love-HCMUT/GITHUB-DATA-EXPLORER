@@ -1,6 +1,6 @@
 let chart = document.querySelector('#languages');
 
-const PORT = "http://127.0.0.1:8000";
+const PORT = "http://127.0.0.1:3000";
 let url = `${PORT}/repo/languages/krahets/hello-algo`;
 
 let xValues = [], yValues = [];

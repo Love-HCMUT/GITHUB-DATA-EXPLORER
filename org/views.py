@@ -9,4 +9,4 @@ async def LoadDataOrg(request):
 
 
 def LoadTemplate(request):
-    return render(request, 'org.html')
+    return render(request, 'org_index.html')

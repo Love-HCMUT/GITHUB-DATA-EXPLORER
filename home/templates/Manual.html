@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% comment %} <link rel="stylesheet" href="../css/styleHuongdan.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleHuongdan.css'%}">
+    <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
+    <title>User manual</title>
+</head>
+<body>
+    <nav>
+        <a href="Home(Gioithieu).html" class="logo">Love-HCMUT</a>
+        <div class="links">
+            <a href="/">Introduce</a>
+            <a href="#">User manual</a>
+            <a href="/home/repo">Repository</a>
+            <a href="/home/user">User</a>
+            <a href="/home/org">Organization</a>
+        </div>
+    </nav>
+
+    <section>
+        <h1>User Manual for GitHub Data Explorer Website</h1>
+        <p>Welcome to the GitHub Data Explorer! This manual will guide you through the steps to use the website effectively, whether you choose to provide your own GitHub token or not. This website will analyze data from GitHub including user repositories, organizations, and user accounts.</p>
+        <div class="content">
+        <h2>1. Getting Started</h2>
+        <p>Access the Website: Open your web browser and navigate to the GitHub Data Explorer Website</p>
+
+        <h2>2. Using the Website Without a GitHub Token</h2>
+        <p>If you prefer not to provide a GitHub token, you can still analyze public information from GitHub.</p>
+        <ol>
+            <li><strong>Choosing type of analysis:</strong>
+                <ul>
+                    <li>On the homepage, you will see options in header include: repository, user, organization</li>
+                    <li>Click on options you want to analyze.</li>
+                </ul>
+            </li>
+            <li><strong>Provide GitHub information</strong>
+                <ul>
+                    <li>Enter your name of Github account or Github repository.</li>
+                    <li>Skip the tokens field.</li>
+                </ul>
+            </li>
+            <li><strong>Click confirm button and wait for a minute while system load data.</strong></li>
+        </ol>
+
+        <h2>3. Using the Website with a GitHub Token</h2>
+        <p>Providing a GitHub token allows the website to access more detailed information about your GitHub account, including private repositories and higher rate limits for API requests. The website will use your token to fetch and display detailed information, including private repositories, detailed contribution stars, and more.</p>
+        <ol>
+            <li><strong>Choosing type of analysis:</strong>
+                <ul>
+                    <li>On the homepage, you will see options in header include: repository, user, organization</li>
+                    <li>Click on options you want to analyze.</li>
+                </ul>
+            </li>
+            <li><strong>Generate a GitHub Token:</strong>
+                <ul>
+                    <li>Go to your GitHub account settings.</li>
+                    <li>Navigate to "Developer settings" and then "Personal access tokens."</li>
+                    <li>Click "Generate new token" and select the necessary scopes (such as repo for repository access and user for user data).</li>
+                    <li>Copy the generated token.</li>
+                    <li>Notice: Read this page to have more detailed guidelines: <a style="color: blue;" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub Token Guidelines</a></li>
+                </ul>
+            </li>
+            <li><strong>Provide GitHub information</strong>
+                <ul>
+                    <li>Enter your name of Github account or Github repository.</li>
+                    <li>Skip the tokens field.</li>
+                </ul>
+            </li>
+            <li><strong>Click confirm button and wait for a minute while system load data.</strong></li>
+        </ol>
+
+        <h2>4. Privacy and Security Guarantee</h2>
+        <p>We take your privacy and the security of your data very seriously. Here is our commitment to you:</p>
+        <ul>
+            <li><strong>Token Usage:</strong> Your GitHub token is used solely to fetch data from GitHub and provide you with detailed insights.</li>
+            <li><strong>No Storage:</strong> We do not store your GitHub token on our servers. Once the data is fetched, the token is discarded.</li>
+            <li><strong>Data Privacy:</strong> Any data fetched using your GitHub token is not stored or shared. It is used only for displaying insights during your current session.</li>
+            <li><strong>Security Measures:</strong> We employ industry-standard security measures to protect your data during transmission.</li>
+        </ul>
+        <p>We recommend you use fine-granted access token which help you configure access policies with more secure. Your trust is important to us, and we are committed to maintaining the confidentiality and security of your private data.</p>
+    </div>
+    </section>
+
+    <footer>
+        <h3>Experience and create more values ​​with us</h3>
+        <div class="right">
+            <div class="links">
+                <a href="/">Introduce</a>
+                <a href="#">User manual</a>
+                <a href="/home/repo">Repository</a>
+                <a href="/home/user">User</a>
+                <a href="/home/org">Organization</a>
+            </div>
+            <div class="social">
+                <i class='bx bxl-instagram'></i>
+                <i class='bx bxl-facebook-square'></i>
+                <i class='bx bxl-github'></i>
+            </div>
+            <p>Thank you for using our website</p>
+        </div>
+    </footer>
+</body>
+</html>

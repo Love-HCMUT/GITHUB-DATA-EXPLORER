@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+    object-fit: cover;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+nav {
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+nav a.logo {
+    font-size: 33px;
+    color: #0f2182;
+    font-weight: 600;
+}
+
+nav .links a:not(:last-child) {
+    margin-right: 20px;
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 100px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer h3 {
+    font-size: 48px;
+}
+
+footer .right {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 26px;
+}
+
+footer .right .links {
+    display: flex;
+    gap: 30px;
+}
+
+footer .right .links a {
+    color: #989898;
+    transition: color 0.3s ease;
+}
+
+footer .right .links a:hover {
+    color: #fff;
+}
+
+footer .right .social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer .right .social i {
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+footer .right .social i:hover {
+    color: #304ffe;
+}
+
+footer .right p {
+    font-size: 13px;
+    color: #777;
+}
+
+@media screen and (max-width: 1400px) {
+    nav,
+    footer {
+        padding: 100px 40px;
+    }
+    footer h3 {
+        font-size: 38px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    footer .links a {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    nav a.logo {
+        font-size: 28px;
+    }
+    nav .links a {
+        font-size: 14px;
+    }
+    footer {
+        flex-direction: column;
+        padding: 60px 40px;
+    }
+    footer h3 {
+        margin-bottom: 40px;
+        font-size: 32px;
+    }
+    footer .right {
+        width: 100%;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav,
+    nav a.logo {
+        display: none;
+    }
+    nav .links a {
+        font-size: 12px;
+    }
+    nav .login button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    footer {
+        padding: 40px 20px;
+    }
+}
+
+section {
+    padding: 40px 80px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 10px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: justify;
+}
+
+section h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+section p,
+section ul,
+section ol {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+section ul,
+section ol {
+    padding-left: 40px;
+}
+
+.content {
+    margin-left: 50px;
+    margin-right: 50px;
+}

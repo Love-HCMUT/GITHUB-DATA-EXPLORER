@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% comment %} css {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css'%}">
+
+    <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
+    <title>Introduce</title>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Love-HCMUT</a>
+        <div class="links">
+            <a href="#">Introduce</a>
+            <a href="/home/manual">User manual</a>
+            <a href="/home/repo">Repository</a>
+            <a href="/home/user">User</a>
+            <a href="/home/org">Organization</a>
+        </div>
+    </nav>
+    <header>
+        <div class="left">
+            <h1>Try it now with <span>Love-HCMUT</span></h1>
+            <p>Do you want to see the parameters of your repository or your Github organization, your own Github account?
+            </p>
+            <a href="Manual.html">
+                <i class='bx bxs-hand-right' ></i>
+                <span>See the instructions</span>
+            </a>
+        </div>
+        <img src="{% static 'img/Love-HCMUT2.jpg' %}">
+    </header>
+    <h2 class="separator">
+        Feature
+    </h2>
+    <div class="sell-nft">
+        <div class="item">
+            <div class="header">
+                <i class='bx bxl-github'></i>
+                <h5>Repository</h5>
+            </div>
+            <p>Give comprehensive insight into the GitHub repository with visualization graphs such as commits, pull requests, issues, top contributors, ...</p>
+        </div>
+        <div class="item">
+            <div class="header">
+                <i class='bx bxl-github'></i>
+                <h5>User</h5>
+            </div>
+            <p>Give comprehensive insight into the user's Github account with visualization graphs such as commit, top repository, activities, top program languages, ...</p>
+        </div>
+        <div class="item">
+            <div class="header">
+                <i class='bx bxl-github'></i>
+                <h5>Organization</h5>
+            </div>
+            <p>Give comprehensive insight into the GitHub organization with visualization graphs such as commits, pull requests, top languages, top contributors, ...</p>
+        </div>
+    </div>
+
+    <h2 class="separator">
+        Product
+    </h2>
+
+    <div class="nft-shop">
+        <div class="nft-list">
+            <div class="item">
+                <img src="{%static 'img/chart1.png' %}">
+                <div class="info">
+                    <div>
+                        <h5>Hình 1</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{%static 'img/chart2.png' %}">
+                <div class="info">
+                    <div>
+                        <h5>Hình 2</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{%static 'img/chart3.png' %}">
+                <div class="info">
+                    <div>
+                        <h5>Hình 3</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{%static 'img/chart4.png' %}">
+                <div class="info">
+                    <div>
+                        <h5>Hình 4</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h3>Experience and create more values ​​with us</h3>
+        <div class="right">
+            <div class="links">
+                <a href="#">Introduce</a>
+                <a href="/home/manual">User manual</a>
+                <a href="/home/repo">Repository</a>
+                <a href="/home/user">User</a>
+                <a href="/home/org">Organization</a>
+            </div>
+            <div class="social">
+                <i class='bx bxl-instagram'></i>
+                <i class='bx bxl-facebook-square'></i>
+                <i class='bx bxl-github'></i>
+            </div>
+            <p>Thank you for using our website</p>
+        </div>
+    </footer>
+</body>

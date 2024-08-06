@@ -1,5 +1,5 @@
 """
-URL configuration for TryDjango project.
+URL configuration for GithubDataExplorer project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -16,13 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user import views
-
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user/', include('user.urls')),
-    path('repo/', include('repo.urls')),
-    path('org/', include('org.urls')),
-    path('', include('home.urls'))
+    path('home/manual', views.LoadManual),
+    path('home/org', views.LoadOrg),
+    path('home/repo', views.LoadRepo),
+    path('home/user', views.LoadUser),
+    path('', views.LoadHome),
 ]

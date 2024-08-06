@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% comment %} <link rel="stylesheet" href="../css/style.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleInput.css'%}">
+
+    <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
+    <title>User</title>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Love-HCMUT</a>
+        <div class="links">
+            <a href="/">Introduce</a>
+            <a href="/home/manual">User manual</a>
+            <a href="/home/repo">Repository</a>
+            <a href="#">User</a>
+            <a href="/home/org">Organization</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <img src="{% static 'img/user.png' %}">
+        <form id="mainForm" novalidate>
+            <h2>User information</h2>
+            <div class="form-control">
+                <label for="name">User name</label>
+                <input type="text" id="name" placeholder="Enter user name" autocomplete="off">
+                <i class="icon"></i>
+            </div>
+
+            <div class="form-control">
+                <label for="password">Tokens</label>
+                <input type="password" id="password" placeholder="Enter your tokens" autocomplete="off">
+                <i class="icon"></i>
+            </div>
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+
+    <footer>
+        <h3>Experience and create more values ​​with us</h3>
+        <div class="right">
+            <div class="links">
+                <a href="/">Introduce</a>
+                <a href="/home/manual">User manual</a>
+                <a href="/home/repo">Repository</a>
+                <a href="#">User</a>
+                <a href="/home/org">Organization</a>
+            </div>
+            <div class="social">
+                <i class='bx bxl-instagram'></i>
+                <i class='bx bxl-facebook-square'></i>
+                <i class='bx bxl-github'></i>
+            </div>
+            <p>Thank you for using our website</p>
+        </div>
+    </footer>
+</body>

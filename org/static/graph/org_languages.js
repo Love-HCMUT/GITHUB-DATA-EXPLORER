@@ -1,13 +1,11 @@
-import { fetchAPI } from "../fetch/repo_fetch.js";
-
-let chart = document.querySelector('#languages_repo');
+let chart_languages = document.querySelector('#languages');
 
 const PORT = "http://127.0.0.1:8000";
-let url = `${PORT}/repo/test/KietCSE`;
+let url = `${PORT}/org/languages/TickLabVN`;
 
 let xValues = [], yValues = [];
-try {
-    fetch(url)
+
+fetch(url)
     .then(response => response.json())
     .then(data => {
         console.log(data);
@@ -15,31 +13,27 @@ try {
         console.log(xValues)
         yValues = Object.values(data);
         console.log(yValues)
-        new Chart(chart, {
+        new Chart(chart_languages, {
             type: "pie",
             data: {
-              labels: xValues,
-              datasets: [{
-                backgroundColor: shuffle(colors),
-                data: yValues
-              }]
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: shuffle(colors),
+                    data: yValues
+                }]
             },
             options: {
-              title: {
-                display: true,
-                text: "World Wide Wine Production 2018"
-              }
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Languages"
+                    }
+                }
             }
         });
     })
-    .catch(err => console.log(err))
-}
-catch(err) {
-    console.log(err)
-    xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-    yValues = [55, 49, 44, 24, 15];
-    console.log('catch');
-}
+    .catch(err => alert(err))
+
 const colors = [
     "#FF0000", // red
     "#0000FF", // blue
@@ -59,23 +53,6 @@ const colors = [
     "#2E8B57", // sea-green
     "#6A5ACD", // slate-blue
 ];
-
-// new Chart(chart, {
-//     type: "pie",
-//     data: {
-//       labels: xValues,
-//       datasets: [{
-//         backgroundColor: shuffle(colors),
-//         data: yValues
-//       }]
-//     },
-//     options: {
-//       title: {
-//         display: true,
-//         text: "World Wide Wine Production 2018"
-//       }
-//     }
-// });
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {

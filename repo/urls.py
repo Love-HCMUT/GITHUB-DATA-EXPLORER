@@ -19,7 +19,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('test/', views.test, name = 'test'),
-    path('test/<str:username>', views.user_languages, name = 'user_languages'),
-    path('test/<str:owner>/<str:repo>', views.repo_info, name = 'repo_info'),
+    path('', views.test, name = 'test'),
+    path('languages/<str:owner>/<str:repo>', views.repo_languages, name = 'repo_languages'),
+    path('info/<str:owner>/<str:repo>', views.repo_info, name = 'repo_info'),
+    path('contributors/<str:owner>/<str:repo>', views.top_contributors_languages, name = 'top_contributors_languages'),
 ]

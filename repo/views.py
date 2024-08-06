@@ -6,10 +6,30 @@ from .src.analysis import repo_analysis as analysis
 def test(request):
     return render(request, 'repo_index.html')
 
-async def user_languages(request, username = 'KietCSE'):
+async def repo_languages(request, owner = 'RavenTheshadow', repo = 'BTL_LTNC'):
     data = {}
     try:
-        data = await analysis.get_user_languages(username)
+        data = await analysis.get_percent_languages(owner, repo)
+    except Exception as e:
+        print(e)
+        data = {
+            'HTML': 100.0
+        }
+    finally:
+        return JsonResponse(data)
+    
+async def repo_info(request, owner = 'RavenTheShadow', repo = 'BTL_LTNC'):
+    data = await analysis.get_repo_info(owner, repo)
+    return JsonResponse(data)
+
+async def top_contributors_languages(request, owner = 'RavenTheshadow', repo = 'BTL_LTNC'):
+    data = await analysis.get_top_contributors_languages(owner, repo)
+    return JsonResponse(data)
+    
+async def languages(request, username = 'KietCSE'):
+    data = {}
+    try:
+        data = await analysis.get_languages(username)
     except Exception as e:
         print(e)
         data = {
@@ -24,7 +44,3 @@ async def user_languages(request, username = 'KietCSE'):
         }
     finally:
         return JsonResponse(data)
-
-async def repo_info(request, owner = 'RavenTheShadow', repo = 'BTL_LTNC'):
-    data = await analysis.get_repo_info(owner, repo)
-    return JsonResponse(data)

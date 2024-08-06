@@ -6,6 +6,8 @@
     --box-shadow:0 .5rem 1.5rem rgba(0,0,0,0.1); 
     --outline: .1rem solid rgba(0,0,0,.4);
     --outline-hover: .2rem solid var(--black);
+    --dark-blue: #132D65;
+    --light-blue: #0073B1;
 }
 
 * {
@@ -25,35 +27,62 @@ html {
     justify-content: center;
 }
 
-.languages_repo {
-    max-width: 500px;
+.languages, .contributors {
+    min-width: 500px;
+    max-width: 1000px;
+    min-height: 300px;
     max-height: 500px;
 }
 
 .repo-info {
+    background-color: rgba(0, 60, 255, 0.4);
+    background-color: var(--light-color);
     display: flex;
-    margin-top: 1.5rem;
+    flex-direction: column;
+    width: 60%;
+    margin: 16px;
+    border-radius: 16px;
+}
+
+.repo-info .stats {
+    display: flex;
+    margin: 1.5rem;
+    padding: 8px;
     background-color: bisque;
+    background-color: var(--orange);
     outline: var(--outline);
-    border-radius: 8px;
+    border-radius: 12px;
     flex-direction: column;
 }
 
-.repo-info div {
-    margin: 8px;
+.repo-info .stats .title {
+    display: flex;
+    margin: 4px;
+    min-width: 160px;
+    min-height: 24px;
+    align-items: center;
+}
+
+.repo-info ion-icon {
+    margin-right: 8px;
+}
+
+.repo-info .stats > div {
     display: flex;
 }
 
-.repo-info div ion-icon {
-    margin-right: 4px;
+.repo-info .stats .content {
+    text-align: center;
+    flex-grow: 1;
 }
 
-.repo-info div span {
-    min-width: 40%;
+.repo-info .repo-description {
+    padding: 16px;
+    color:aliceblue;
 }
 
-.repo-info div p {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+.repo-info .repo-description .title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
 }

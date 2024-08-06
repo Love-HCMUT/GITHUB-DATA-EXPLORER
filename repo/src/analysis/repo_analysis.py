@@ -26,16 +26,16 @@ async def get_repo_info(owner, repo):
     data.update({'branches': await fetch.fetch_repo_branches_name(owner, repo)})
     return data
 
-async def get_languages(name, org = False):
+async def get_languages(username):
     """
     Get information about the user's languages.
-    :param name: The handle for the GitHub user account or name of organization.
+    :param username: The handle for the GitHub user account.
     :return: a dictionary contains languages and corresponding percentages
     """
-    repos = await fetch.fetch_repos_name(name, org)
+    repos = await fetch.fetch_repos_name(username)
     languages = {}
     for repo in repos:
-        data = await fetch.fetch_repo_languages(name, repo)
+        data = await fetch.fetch_repo_languages(username, repo)
         for key, value in data.items():
             languages[key] = languages.get(key, 0) + value
     total = sum(languages.values())
@@ -54,7 +54,8 @@ async def get_top_contributors_languages(owner, repo, DEMAND = 3):
     """
     contributors = await fetch.fetch_repo_contributors(owner, repo)
     number = len(contributors) if len(contributors) < DEMAND else DEMAND
-    contributors = dict(sorted(contributors.items(), key = lambda item: item[1], reverse = True)[:number])
+    # contributors = dict(sorted(contributors.items(), key = lambda item: item[1], reverse = True)[:number])
+    contributors = list(contributors.keys())[:number]
     result = {}
     for contributor in contributors:
         languages = await get_languages(contributor)

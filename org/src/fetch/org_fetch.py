@@ -83,17 +83,17 @@ async def fetch_repo_contributors(owner, repo):
         data.update({contributor['login']: contributor['contributions']})
     return data
 
-async def fetch_repos_name(username):
+async def fetch_repos_name(orgname):
     """
     Get list public repositories for the specified user.
-    :param username: The handle for the GitHub user account.
+    :param orgname: Name of the organization.
     :return: a list contains name of all repos
     """
     data = []
     page = 1
     perpage = 30
     while (True):
-        repos = await fetchAPI(f'https://api.github.com/users/{username}/repos?page={page}&per_page={perpage}')
+        repos = await fetchAPI(f'https://api.github.com/orgs/{orgname}/repos?page={page}&per_page={perpage}')
         if (len(repos) == 0): break
         for repo in repos:
             if not repo['fork'] and repo['size']:
@@ -148,4 +148,5 @@ async def fetch_repo_commits(owner, repo):
         since = since.strftime(FORMAT_STRING)
         commits = await fetch_repo_commit_since_until(owner, repo, since, until)
         result.update({month_name : commits})
+
     return result

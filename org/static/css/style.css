@@ -1,0 +1,48 @@
+:root {
+    --orange: #ff7800;
+    --black: #130f40; 
+    --light-color: #666; 
+    --border:.2rem solid rgba(0,0,0,.1);
+    --box-shadow:0 .5rem 1.5rem rgba(0,0,0,0.1); 
+    --outline: .1rem solid rgba(0,0,0,.1);
+    --outline-hover: .2rem solid var(--black);
+}
+
+* {
+    /* font-family: "Poppins", sans-serif; */
+    /* font-family: 'Amazon Ember', sans-serif; */
+    font-family: 'Amazon Ember V2', sans-serif;
+    font-style: normal;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    /* text-transform: capitalize; */
+    transition: all .2s linear; /*moi thuoc tinh deu chuyen dong */
+}
+
+html {
+    scroll-behavior: smooth;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100wv;
+    height: 100vh;
+}
+
+
+.img1 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the start of the flex container */
+    width: 500px;
+    height: 100%;
+}
+
+#myChart1 {
+    max-width: 100%;
+    max-height: 100%;
+    width: 800px;
+    height: 800px;
+}

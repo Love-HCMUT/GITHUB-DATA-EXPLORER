@@ -53,14 +53,14 @@ async function CreateOrgInformation() {
             legend: {
                 display: false
             },
-            title: {
-                display: true,
-                text: "Top Members Commit",
-                color: "black",
-                font: {
-                    size: 20,
-                },
-            },
+            // title: {
+            //     display: true,
+            //     text: "Top Members Commit",
+            //     color: "black",
+            //     font: {
+            //         size: 20,
+            //     },
+            // },
         },
     },
 });

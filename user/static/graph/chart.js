@@ -5,13 +5,15 @@ const PORT = "http://127.0.0.1:3000"
 
 async function CreateOrgInformation() {
     let data = await fetchAPI(`${PORT}/user/data`)
-    const user = document.querySelector('.user-data')
+    const user = document.querySelector('.org-data')
+
+
     user.innerHTML = `
-        <div class="avatar">           
+        <div class="part1">           
             <img src="${data.info.avatar_url}" alt="">
         </div>
 
-        <div class="statistic">
+        <div class="part2">
             <div class="name box">
                 <ion-icon name="person-outline"></ion-icon>
                 <p><span class="text">Name: </span>${data.info.login}</p>
@@ -37,32 +39,38 @@ async function CreateOrgInformation() {
                 <p><span class="text">Create at: </span>${data.info.created_at}</p>
             </div>
 
-            <div class="description box">
-                <ion-icon name="information-circle-outline"></ion-icon>
-                <p><span class="text">Description: </span>${data.info.description}</p>
+            <div class="star box">
+                <ion-icon name="star-outline"></ion-icon>
+                <p><span class="text">Total stars: </span>${data.totalStars}</p>
             </div>
 
-            <div class="totalStars box">
-                <ion-icon name="star-outline"></ion-icon>
-                <p><span class="text">Star: </span>${data.totalStars}</p>
-            </div>
             <div class="totalPRs box">
                 <ion-icon name="git-pull-request-outline"></ion-icon>
                 <p><span class="text">PRs: </span>${data.totalPRs}</p>
             </div>
-            <div class="totalMergedPRs box">
+        </div>
+
+        <div class="part3">
+             <div class="description box-2">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <p><span class="text">Description: </span>${data.info.description}</p>
+            </div>
+
+            <div class="totalMergedPRs box-2">
                 <ion-icon name="git-merge-outline"></ion-icon>
                 <p><span class="text">MergedPRs: </span>${data.totalMergedPRs}</p>
             </div>
-            <div class="totalContributions box">
+
+            <div class="totalContributions box-2">
                 <ion-icon name="logo-github"></ion-icon>
                 <p><span class="text">Contributions: </span>${data.totalContributions}</p>
             </div>
-            <div class="top3Repos box"> 
+            <div class="top3Repos box-2"> 
                 <ion-icon name="list-circle-outline"></ion-icon>
                 <p><span class="text">Top 3 Repos: </span></p>
                 <ul id="top3ReposList"></ul>
             </div>
+
         </div>
     `;
     const top3ReposList = document.getElementById('top3ReposList');
@@ -181,7 +189,7 @@ async function CreateOrgInformation() {
     let table = new DataTable('#myTable', {
       // options
       data: tableData,
-      pageLength: 5,  
+      pageLength: 4,  
       dom: '<"top"f>rt<"bottom"p><"clear">',
     });
 }

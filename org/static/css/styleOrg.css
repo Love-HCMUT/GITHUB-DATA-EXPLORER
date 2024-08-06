@@ -185,7 +185,7 @@ html {
 .box-chart-line .chart-img {
     background-color: var(--box-color);
     width: 90%;
-    height: 100%;
+    height: 335px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -211,7 +211,7 @@ html {
 .org-data {
     display: flex;
     position: relative;
-    padding: 10px 25px;
+    padding: 10px 35px;
     gap: 10px;
     border-radius: 10px;
     height: 100%;
@@ -231,11 +231,11 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 3;
+    flex: 4;
 }
 
 .org-data .part2{
-    flex: 5;
+    flex: 4;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

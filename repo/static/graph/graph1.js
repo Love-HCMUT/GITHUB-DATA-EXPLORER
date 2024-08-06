@@ -9,7 +9,7 @@ async function RepoContributorGraph() {
     let NameContributor = Object.keys(contributors)
     let DataContributor = Object.values(contributors)
 
-    const ctx = document.getElementById('myChart1');
+    const ctx = document.getElementById('Contributor');
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -60,11 +60,9 @@ RepoContributorGraph()
 // DRAW LINE GRAPH FOR COMMIT IN 6 MONTHS 
 async function RepoCommmitsGraph() {
     const commitLine = await fetchAPI(`${PORT}/repo/commit`)
-    let Months = Object.keys(commitLine)
-    let Commits = Object.values(commitLine)
-    console.log(Months)
-    console.log(Commits)
-    const char = document.getElementById('myChart2');
+    let Months = Object.keys(commitLine).reverse()
+    let Commits = Object.values(commitLine).reverse()
+    const char = document.getElementById('Commit');
 
     new Chart(char, {
       type: 'line',
@@ -84,10 +82,6 @@ async function RepoCommmitsGraph() {
           legend: {
             position: 'top',
           },
-          title: {
-            display: true,
-            text: 'COMMITS WITHN RECENT 6 MONTHS'
-          }
         }
       },
     });
@@ -99,11 +93,9 @@ RepoCommmitsGraph()
 // DRAW LINE GRAPH FOR ISSUES IN 6 MONTHS 
 async function RepoIssuesGraph() {
   const issuesLine = await fetchAPI(`${PORT}/repo/issues`)
-  let Months = Object.keys(issuesLine)
-  let Issues = Object.values(issuesLine)
-  console.log(Months)
-  console.log(Issues)
-  const chart = document.getElementById('myChart3');
+  let Months = Object.keys(issuesLine).reverse()
+  let Issues = Object.values(issuesLine).reverse()
+  const chart = document.getElementById('Issue');
 
   new Chart(chart, {
     type: 'line',
@@ -123,10 +115,6 @@ async function RepoIssuesGraph() {
         legend: {
           position: 'top',
         },
-        title: {
-          display: true,
-          text: 'ISSUES WITHIN RECENT 6 MONTHS'
-        }
       }
     },
   });
@@ -140,9 +128,7 @@ async function RepoPullsGraph() {
   const pullsLine = await fetchAPI(`${PORT}/repo/pulls`)
   let Months = Object.keys(pullsLine)
   let Pulls = Object.values(pullsLine)
-  console.log(Months)
-  console.log(Pulls)
-  const ch = document.getElementById('myChart4');
+  const ch = document.getElementById('Pull');
 
   new Chart(ch, {
     type: 'line',
@@ -162,10 +148,6 @@ async function RepoPullsGraph() {
         legend: {
           position: 'top',
         },
-        title: {
-          display: true,
-          text: 'PULL REQUESTS WITHIN RECENT 6 MONTHS'
-        }
       }
     },
   });

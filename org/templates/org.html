@@ -5,23 +5,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styleOrg.css' %}">
+    <!-- icon -->
+    <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
+    <!-- css file  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleOrg.css'%}">
+    <!-- table library cdn -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- amazon font cdn -->
+    <link href="https://fonts.cdnfonts.com/css/amazon-ember" rel="stylesheet">
+                
 </head>
 <body>
-    <canvas class="" id="myChart1"></canvas>
-    <canvas class="" id="myChart2"></canvas> 
-    <canvas class="" id="myChart3"></canvas> 
-
-    <div class="org-data"></div>
     
+        <div class="left-side-property">
+            <div class="base-info">
+                <span class="name-logo">Love-HCMUT</span>
+                <span>Organization Insight</span>
+                <p>Welcome to our comprehensive platform for analyzing GitHub organization.</p>
+            </div>
+            <div class="menu">
+                <span>List of topics</span>
+                <p><a href="#info">General Information</a></p>
+                <p><a href="#contribution">Contributions</a></p>
+                <p><a href="#language">Languages</a></p>
+               
+            </div>
+           
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script type="module" src="{% static 'graph/graphOrg.js' %}"></script>
-    <script type="module" src="{% static 'fetch/fetchOrg.js' %}"></script>
+        <!-- MAIN SOURCE FOR CHART  -->
 
+        <div class="main-property" id="info">
+
+            <!-- <span class="topic-chart" id="kiet">CHART 1</span> -->
+            <!-- INFORMATION -->
+            <div class="main-info">
+
+                <div class="org-data">
+            
+                </div>
+
+            </div>
+
+            <!-- LIST OF CHART -->
+
+            <span class="topic-chart" id="contribution">Contributions</span>
+
+            {% comment %} CONTRIBUTION {% endcomment %}
+            <div class="box-chart-line">
+                {% comment %} Contributions within recent 6 months {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Contributions within recent 6 months</span>
+                   </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                    </div>
+                </div>
+
+                {% comment %} Contributions of top member {% endcomment %}
+                <div class="chart"> 
+                    <div class="box-title">
+                        <span>Contributions of top members</span>
+                    </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                    </div>
+                </div>
+
+            </div>
+            {% comment %} END CONTRIBUTION {% endcomment %}
+
+
+            <span class="topic-chart" id="language">Program Languages</span>
+
+            {% comment %} CONTRIBUTORS {% endcomment %}
+            <div class="box-chart-line">
+                {% comment %} Top 10 contributors {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Top 10 contributors</span>
+                   </div>
+
+                    <div class="chart-img">
+                        <canvas class="" id="Contributor"></canvas> 
+                    </div>
+                </div>
+
+                {% comment %} Language of contributors {% endcomment %}
+                <div class="chart"> 
+                    <div class="box-title">
+                        <span>Language of each contributor</span>
+                   </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            {% comment %} END CONTRIBUTORS {% endcomment %}
+
+
+            {% comment %} dont pay attention to this box {% endcomment %}
+            <div class="last-box"></div>
+
+        </div>
+        
+
+        <!-- table cdn -->
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+        <!-- chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!-- icon cdn -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <!-- script js -->
+        <script type="module" src="{% static 'fetch/fetchOrg.js' %}"></script>
+        <script type="module" src="{% static 'graph/graphOrg.js' %}"></script>
 </body>
 </html>

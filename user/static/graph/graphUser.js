@@ -33,10 +33,6 @@ async function UserActivityGraph() {
           legend: {
             position: 'top',
           },
-          title: {
-            display: true,
-            text: 'ACTIVITIES IN RECENT 3 MONTHS'
-          }
         },
         interaction: {
           mode: 'nearest',

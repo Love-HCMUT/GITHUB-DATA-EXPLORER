@@ -6,7 +6,7 @@ from .src.fetch import fetch1
 from .src.analysis import analysis1
 
 def Home(request):
-    return render(request, 'repo.html')
+    return render(request, 'repo_index.html')
 
 # Create your views here.
 async def GetRepoData(request):

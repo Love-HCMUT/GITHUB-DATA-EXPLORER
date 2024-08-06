@@ -5,7 +5,7 @@ from .src.analysis import analysisUser
 
 # Create your views here.
 def Home(request):
-    return render(request, 'index.html')
+    return render(request, 'user_index.html')
 
 
 async def GetDataActivity(request): 

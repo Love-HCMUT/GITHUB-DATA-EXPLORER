@@ -9,11 +9,11 @@ async function CreateOrgInformation() {
     console.log(data)
     const org = document.querySelector('.org-data')
     org.innerHTML = `
-        <div class="avatar">           
-            <img src="${data.avatar_url}" alt="">
+        <div class="part1">           
+            <img src="${data.avatar_url}"  alt="">
         </div>
 
-        <div class="statistic">
+        <div class="part2">
             <div class="name box">
                 <ion-icon name="person-outline"></ion-icon>
                 <p><span class="text">Name: </span>${data.login}</p>

@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- icon -->
+    <link rel="icon" href="{% static 'img/Love-HCMUT.jpg'%}" type="image/x-icon">
+    <!-- css file  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleRepo.css'%}">
+    <!-- table library cdn -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- amazon font cdn -->
+    <link href="https://fonts.cdnfonts.com/css/amazon-ember" rel="stylesheet">
+                
+</head>
+<body>
+    
+        <div class="left-side-property">
+            <div class="base-info">
+                <span class="name-logo">Love-HCMUT</span>
+                <span>Repository Insight</span>
+                <p>Welcome to our comprehensive platform for analyzing GitHub repositories.</p>
+            </div>
+            <div class="menu">
+                <span>List of topics</span>
+                <p><a href="#info">General Information</a></p>
+                <p><a href="#language">Languages And Commits</a></p>
+                <p><a href="#contributor">Contributors</a></p>
+                <p><a href="#issue">Issues And Pull Requests</a></p>
+            
+            </div>
+           
+        </div>
+
+
+        <!-- MAIN SOURCE FOR CHART  -->
+
+        <div class="main-property" id="info">
+
+            <!-- <span class="topic-chart" id="kiet">CHART 1</span> -->
+            <!-- INFORMATION -->
+            <div class="main-info">
+
+                <div class="org-data">
+
+                    <div class="part1">           
+                        <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/Hinh-nen-anime-cute-8-1.jpg" alt="">
+                    </div>
+            
+                    <div class="part2">
+                        <div class="name box">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <p><span class="text">Name: </span>TUANKIET</p>
+                        </div>
+            
+                        <div class="email box">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <p><span class="text">Email: </span>hcmut@gmail.com</p>
+                        </div>
+            
+                        <div class="location box">
+                            <ion-icon name="location-outline"></ion-icon>
+                            <p><span class="text">Location: </span>HCM city</p>
+                        </div>
+            
+                        <div class="follower box">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <p><span class="text">Followers: </span>5000</p>
+                        </div>
+            
+                        <div class="createAt box">
+                            <ion-icon name="time-outline"></ion-icon>
+                            <p><span class="text">Create at: </span>25/07/2024</p>
+                        </div>
+            
+                        <!-- <div class="description box">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <p><span class="text">Description: </span>kakakakakakakakakakakakakakakak</p>
+                        </div>
+            
+                        <div class="memeber box">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <p><span class="text">Members: </span>10</p>
+                        </div> -->
+                    </div>
+            
+                    <div class="part3">
+                        <div class="description box-2">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <p><span class="text">Description: </span>If you are using your app with GitHub Actions and want to modify workflow files, you must authenticate on behalf of the user with an OAuth token that includes the workflow scope. The user must have admin or write permission to the repository that contains the workflow file. For more information, see "Scopes for OAuth apps."</p>
+                        </div>
+            
+                        <div class="memeber box-2">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <p><span class="text">Members: </span>10</p>
+                        </div>
+            
+                    </div>
+            
+                </div>
+
+            </div>
+
+            <!-- LIST OF CHART -->
+
+            <span class="topic-chart" id="language">Languages And Commits</span>
+
+            {% comment %} LANGUAGE {% endcomment %}
+            <div class="box-chart-line">
+                {% comment %} Languages in repository {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Program Languages</span>
+                   </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                    </div>
+                </div>
+
+                {% comment %} Commits within recent 6 months {% endcomment %}
+                <div class="chart"> 
+                    <div class="box-title">
+                        <span>Commits within recent 6 months</span>
+                    </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                        <canvas id="Commit"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            {% comment %} END LANGUAGE {% endcomment %}
+
+
+            <span class="topic-chart" id="contributor">Contributors</span>
+
+            {% comment %} CONTRIBUTORS {% endcomment %}
+            <div class="box-chart-line">
+                {% comment %} Top 10 contributors {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Top 10 contributors</span>
+                   </div>
+
+                    <div class="chart-img">
+                        <canvas class="" id="Contributor"></canvas> 
+                    </div>
+                </div>
+
+                {% comment %} Language of contributors {% endcomment %}
+                <div class="chart"> 
+                    <div class="box-title">
+                        <span>Language of each contributor</span>
+                   </div>
+                    <div class="chart-img">
+                        {% comment %} put chart here {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            {% comment %} END CONTRIBUTORS {% endcomment %}
+
+            <span class="topic-chart" id="issue">Issues And Pull Requests</span>
+
+            {% comment %} ISSUES AND PULL REQUESTS {% endcomment %}
+            <div class="box-chart-line">
+                {% comment %} issues {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Issues within recent 6 months</span>
+                   </div>
+                
+                   <div class="chart-img">
+                        <canvas class="" id="Issue"></canvas> 
+                    </div>
+
+                </div>
+
+                {% comment %} pull request {% endcomment %}
+                <div class="chart">
+                    <div class="box-title">
+                        <span>Pull requests within recent 6 months</span>
+                    </div>
+                
+                   <div class="chart-img">
+                        <canvas class="" id="Pull"></canvas> 
+                    </div>
+
+                </div>
+            </div>
+            {% comment %} END ISSUES AND PULLREQQEST  {% endcomment %}
+
+            {% comment %} dont pay attention to this box {% endcomment %}
+            <div class="last-box"></div>
+
+        </div>
+        
+
+        <!-- table cdn -->
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+        <!-- chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!-- icon cdn -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <!-- script js -->
+        <script type="module" src="{% static 'fetch/fetch1.js' %}"></script>
+        <script type="module" src="{% static 'graph/graph1.js' %}"></script>
+</body>
+</html>

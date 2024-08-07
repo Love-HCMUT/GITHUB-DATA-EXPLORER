@@ -1,8 +1,5 @@
 import {fetchAPI} from '../fetch/fetch1.js'
-import {owner, repo} from '../info/info.js'
-
-const PORT = "http://127.0.0.1:3000"
-
+import {PORT, owner, repo} from '../info/info.js'
 
 // DRAW BAR GRAPH FOR CONTRIBUTORS 
 async function RepoContributorGraph() {

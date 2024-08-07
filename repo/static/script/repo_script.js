@@ -1,7 +1,6 @@
-import {owner, repo} from '../info/info.js'
+import {PORT, owner, repo} from '../info/info.js'
 let repoInfo = document.querySelector('.org-data')
 
-const PORT = "http://127.0.0.1:3000";
 let url = `${PORT}/repo/info/${owner}/${repo}`;
 
 fetch(url)

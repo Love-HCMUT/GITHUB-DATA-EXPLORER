@@ -1,5 +1,5 @@
 import {fetchAPI} from '../fetch/fetchUser.js'
-import {PORT, username} from "../info/info.js";
+import {PORT, username} from "../info/user_info.js";
 
 // DRAW LINE GRAPH FOR ACTIVITIES IN 3 MONTHS 
 async function UserActivityGraph() {

@@ -1,5 +1,5 @@
 import { fetchAPI } from "../fetch/fetchdata.js"
-import {PORT, username} from "../info/info.js"
+import {PORT, username} from "../info/user_info.js"
 
 
 async function CreateOrgInformation() {

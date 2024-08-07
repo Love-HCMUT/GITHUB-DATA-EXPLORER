@@ -1,4 +1,4 @@
-import {PORT, owner, repo} from '../info/info.js'
+import {PORT, owner, repo} from '../info/repo_info.js'
 
 let chart = document.querySelector('#languages');
 

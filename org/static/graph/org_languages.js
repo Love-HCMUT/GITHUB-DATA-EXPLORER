@@ -1,7 +1,7 @@
+import {PORT, orgname} from "../info/org_info.js";
 let chart_languages = document.querySelector('#languages');
 
-const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/org/languages/TickLabVN`;
+let url = `${PORT}/org/languages/${orgname}`;
 
 let xValues = [], yValues = [];
 

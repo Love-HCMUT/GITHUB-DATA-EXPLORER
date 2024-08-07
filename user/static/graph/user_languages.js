@@ -1,4 +1,4 @@
-import {PORT, username} from "../info/info.js";
+import {PORT, username} from "../info/user_info.js";
 let chart_contributions = document.querySelector('#languages')
 
 let url = `${PORT}/user/languages/${username}`;

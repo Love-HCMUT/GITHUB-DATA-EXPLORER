@@ -1,5 +1,5 @@
 import {fetchAPI} from '../fetch/fetch1.js'
-import {PORT, owner, repo} from '../info/info.js'
+import {PORT, owner, repo} from '../info/repo_info.js'
 
 // DRAW BAR GRAPH FOR CONTRIBUTORS 
 async function RepoContributorGraph() {

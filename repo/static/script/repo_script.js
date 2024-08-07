@@ -1,4 +1,4 @@
-import {PORT, owner, repo} from '../info/info.js'
+import {PORT, owner, repo} from '../info/repo_info.js'
 let repoInfo = document.querySelector('.org-data')
 
 let url = `${PORT}/repo/info/${owner}/${repo}`;

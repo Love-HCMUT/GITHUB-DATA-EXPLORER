@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
 from . import views
 
 urlpatterns = [
@@ -11,3 +12,5 @@ urlpatterns = [
     path('languages/<str:orgname>', views.languages, name = 'languages'),
     path('contributions/<str:orgname>', views.contributions, name = 'contributions'),
 ]
+
+# handler404 = Hander404

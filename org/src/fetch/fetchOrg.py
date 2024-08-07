@@ -24,10 +24,12 @@ async def fetchAPI(urls):
                 else:
                     print(f"Error: {response.status}, {await response.text()}")
                     return None
-        except requests.exceptions.HTTPError as http_err:
+        except aiohttp.ClientResponseError as http_err:
             print(f"HTTP error occurred: {http_err}")
+            raise http_err
         except Exception as err:
             print(f"An error has occurred: {err}")
+            raise err
 
 
 
@@ -51,5 +53,6 @@ async def fetchOrgInfo(orgname):
         page += 1
     
     Infor.update({'members' : countMem})
-
     return Infor
+    
+

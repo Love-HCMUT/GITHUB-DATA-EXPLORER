@@ -6,15 +6,20 @@ from django.http import HttpResponse
 from .src.analysis import analysisdata
 from .src.fetch import getdata
 from .src.analysis import org_analysis as analysis
+from ErrorHandler.exceptionHandler import HandlerException
 
 # Create your views here.
 async def LoadDataOrg(request): 
-    data = await analysis2.GetDataOrg('microsoft')
-    return JsonResponse(data)
+    try: 
+        data = await analysis2.GetDataOrg('soft')
+        return JsonResponse(data)
+    except Exception as e:
+        return HandlerException(e)
 
 
 def LoadTemplate(request):
     return render(request, 'org_index.html')
+
 
 # Create your views here.
 def Home(request):

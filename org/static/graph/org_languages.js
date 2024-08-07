@@ -8,11 +8,8 @@ let xValues = [], yValues = [];
 fetch(url)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         xValues = Object.keys(data);
-        console.log(xValues)
         yValues = Object.values(data);
-        console.log(yValues)
         new Chart(chart_languages, {
             type: "pie",
             data: {

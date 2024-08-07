@@ -8,48 +8,35 @@ from .src.fetch import getdata
 from .src.analysis import org_analysis as analysis
 
 # Create your views here.
-async def LoadDataOrg(request): 
-    data = await analysis2.GetDataOrg('microsoft')
-    return JsonResponse(data)
-
-
 def LoadTemplate(request):
     return render(request, 'org_index.html')
 
-# Create your views here.
-def Home(request):
-    return render(request, 'index1.html')
+async def LoadDataOrg(request, orgname):
+    try:
+        data = await analysis2.GetDataOrg(orgname)
+        return JsonResponse(data, status = 200)
+    except Exception as e:
+        return HttpResponse(status = 404)
 
 # Create your views here.
-async def GetData(request):
-    data = await analysisdata.gather_repo_data('TickLabVN')
-    # print(data)
-    return JsonResponse(data, safe=False)
+async def GetData(request, orgname):
+    try:
+        data = await analysisdata.gather_repo_data(orgname)
+        return JsonResponse(data, status = 200)
+    except Exception as e:
+        return HttpResponse(status = 404)
 
-# Create your views here.
-def test(request):
-    return render(request, 'org_index.html')
-
-async def languages(request, orgname = 'TickLabVN'):
-    data = {}
+async def languages(request, orgname):
     try:
         data = await analysis.get_languages(orgname)
+        return JsonResponse(data, status = 200)
     except Exception as e:
-        print(e)
-        data = {
-            'HTML': 55.0,
-            'Jupyter Notebook': 22.4,
-            'TeX': 7.7,
-            'Python': 0.8,
-            'Java': 1.9,
-            'Batchfile': 0.0,
-            'C++': 12.0,
-            'JavaScript': 0.0   
-        }
-    finally:
-        return JsonResponse(data)
+        return HttpResponse(status = 404)
     
-async def contributions(request, orgname = 'TickLabVN'):
-    data = await analysis.get_org_contributions_last_6_months(orgname)
-    return JsonResponse(data)
+async def contributions(request, orgname):
+    try:
+        data = await analysis.get_org_contributions_last_6_months(orgname)
+        return JsonResponse(data, status = 200)
+    except Exception as e:
+        return HttpResponse(status = 404)
 

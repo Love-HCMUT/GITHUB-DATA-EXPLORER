@@ -1,7 +1,8 @@
+import {owner, repo} from '../info/info.js'
 let repoInfo = document.querySelector('.org-data')
 
 const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/repo/info/krahets/hello-algo`;
+let url = `${PORT}/repo/info/${owner}/${repo}`;
 
 fetch(url)
     .then(response => response.json())
@@ -57,7 +58,7 @@ fetch(url)
             <div class="part2">
                 <div class="name box">
                     <ion-icon name="person-outline"></ion-icon>
-                    <p><span class="text">Name: </span>NAME???</p>
+                    <p><span class="text">Name: </span>${owner}/${repo}</p>
                 </div>
     
                 <div class="start box">

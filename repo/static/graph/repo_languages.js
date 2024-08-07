@@ -1,7 +1,8 @@
+import {owner, repo} from '../info/info.js'
 let chart = document.querySelector('#languages');
 
 const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/repo/languages/krahets/hello-algo`;
+let url = `${PORT}/repo/languages/${owner}/${repo}`;
 
 let xValues = [], yValues = [];
 fetch(url)

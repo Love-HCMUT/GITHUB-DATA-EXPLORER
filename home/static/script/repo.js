@@ -12,7 +12,7 @@ submit.addEventListener('click', (event) => {
         window.location.href = `${PORT}/repo`
     }
     else {
-        alert('Owner và Repo không được để trống.');
+        alert('Owner name and Repository name cannot be blank.');
     }
     localStorage.setItem('token', token.value);
 })

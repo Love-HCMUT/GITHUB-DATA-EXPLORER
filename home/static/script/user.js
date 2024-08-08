@@ -10,7 +10,7 @@ submit.addEventListener('click', (event) => {
         window.location.href = `${PORT}/user`
     }
     else {
-        alert('Owner và Repo không được để trống.');
+        alert('Username cannot be blank.');
     }
     localStorage.setItem('token', token.value);
 })

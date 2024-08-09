@@ -29,18 +29,18 @@
         <form id="mainForm" novalidate>
             <h2>User information</h2>
             <div class="form-control">
-                <label for="name">User name</label>
-                <input type="text" id="name" placeholder="Enter user name" autocomplete="off">
+                <label for="username">User name</label>
+                <input type="text" id="username" placeholder="Enter user name" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
             <div class="form-control">
-                <label for="password">Tokens</label>
-                <input type="password" id="password" placeholder="Enter your tokens" autocomplete="off">
+                <label for="token">Tokens</label>
+                <input type="password" id="token" placeholder="Enter your tokens" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
 
         </form>
     </div>
@@ -63,4 +63,5 @@
             <p>Thank you for using our website</p>
         </div>
     </footer>
+    <script type="module" src="{% static 'script/user.js' %}"></script>
 </body>

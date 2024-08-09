@@ -20,11 +20,10 @@ from . import views
 
 urlpatterns = [
     path('', views.Home),
-    path('contributor/', views.GetRepoData),
-    path('commit/', views.GetRepoData2),
-    path('issues/', views.GetRepoData3),
-    path('pulls/', views.GetRepoData4),
-    path('test/', views.test, name = 'test'),
+    path('contributor/<str:owner>/<str:repo>', views.GetRepoData),
+    path('commit/<str:owner>/<str:repo>', views.GetRepoData2),
+    path('issues/<str:owner>/<str:repo>', views.GetRepoData3),
+    path('pulls/<str:owner>/<str:repo>', views.GetRepoData4),
     path('languages/<str:owner>/<str:repo>', views.repo_languages, name = 'repo_languages'),
     path('info/<str:owner>/<str:repo>', views.repo_info, name = 'repo_info'),
     path('contributors/<str:owner>/<str:repo>', views.top_contributors_languages, name = 'top_contributors_languages'),

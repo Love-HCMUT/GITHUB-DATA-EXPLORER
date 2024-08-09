@@ -1,16 +1,11 @@
 import {fetchAPI} from '../fetch/fetchUser.js'
-
-const PORT = "http://127.0.0.1:3000"
-
-console.log("HELLO")
+import {PORT, username} from "../info/user_info.js";
 
 // DRAW LINE GRAPH FOR ACTIVITIES IN 3 MONTHS 
 async function UserActivityGraph() {
-    const activityLine = await fetchAPI(`${PORT}/user/activity`)
+    const activityLine = await fetchAPI(`${PORT}/user/activity/${username}`)
     let Months = Object.keys(activityLine)
     let Activity = Object.values(activityLine)
-    console.log(Months)
-    console.log(Activity)
     const ch = document.getElementById('myChart4');
   
     new Chart(ch, {

@@ -98,3 +98,8 @@ fetch(url)
         repoInfo.innerHTML = html;
     })
     .catch(err => console.log(err))
+
+
+document.querySelector('.left-side-property .home-btn').addEventListener('click', () => {
+    window.location.href = PORT
+})

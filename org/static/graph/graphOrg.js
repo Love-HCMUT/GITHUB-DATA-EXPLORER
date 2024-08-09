@@ -1,12 +1,8 @@
-console.log("hhihi")
-
 import { fetchAPI } from "../fetch/fetchOrg.js"
-
-const PORT = "http://127.0.0.1:3000"
+import {PORT, orgname} from "../info/org_info.js"
 
 async function CreateOrgInformation() {
-    let data = await fetchAPI(`${PORT}/org/infor`)
-    console.log(data)
+    let data = await fetchAPI(`${PORT}/org/infor/${orgname}`)
     const org = document.querySelector('.org-data')
     org.innerHTML = `
         <div class="part1">           

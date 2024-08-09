@@ -1,7 +1,8 @@
+import {PORT, owner, repo} from '../info/repo_info.js'
+
 let chart = document.querySelector('#contributors');
 
-const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/repo/contributors/krahets/hello-algo`;
+let url = `${PORT}/repo/contributors/${owner}/${repo}`;
 
 fetch(url)
     .then(response => response.json())

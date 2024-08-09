@@ -4,10 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.Home), 
-    path('activity', views.GetDataActivity),
-    path('lam/', views.Home), 
-    path('data/', views.GetData),
-    path('months/', views.GetMonths),
-    path('test/', views.test, name = 'test'),
+    path('activity/<str:username>', views.GetDataActivity),
+    path('data/<str:username>', views.GetData),
+    path('months/<str:username>', views.GetMonths),
     path('languages/<str:username>', views.languages, name = 'languages'),
 ]

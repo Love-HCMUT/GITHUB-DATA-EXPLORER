@@ -1,7 +1,7 @@
-let chart_contributions = document.querySelector('#contributions')
+import {PORT, orgname} from "../info/org_info.js";
+let chart_contributions = document.querySelector('#contributions');
 
-const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/org/contributions/TickLabVN`;
+let url = `${PORT}/org/contributions/${orgname}`;
 
 let xValues = [], yValues = [];
 
@@ -21,6 +21,9 @@ fetch(url)
             },
             options: {
                 plugins: {
+                    legend: {
+                        display: false,
+                    },
                     title: {
                         display: true,
                         text: "Contributions"

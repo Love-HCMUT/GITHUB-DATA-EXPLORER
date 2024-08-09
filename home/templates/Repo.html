@@ -30,23 +30,23 @@
         <form id="mainForm" novalidate>
             <h2>Repository information</h2>
             <div class="form-control">
-                <label for="name">Owner name</label>
-                <input type="text" id="name" placeholder="Enter owner name" autocomplete="off">
+                <label for="owner">Owner name</label>
+                <input type="text" id="owner" placeholder="Enter owner name" autocomplete="off">
                 <i class="icon"></i>
             </div>
             <div class="form-control">
-                <label for="name">Repository name</label>
-                <input type="text" id="name" placeholder="Enter repository name" autocomplete="off">
+                <label for="repo">Repository name</label>
+                <input type="text" id="repo" placeholder="Enter repository name" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
             <div class="form-control">
-                <label for="password">Tokens</label>
-                <input type="password" id="password" placeholder="Enter your tokens" autocomplete="off">
+                <label for="token">Tokens</label>
+                <input type="password" id="token" placeholder="Enter your tokens" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
 
         </form>
     </div>
@@ -69,4 +69,5 @@
             <p>Thank you for using our website</p>
         </div>
     </footer>
+    <script type="module" src="{% static 'script/repo.js' %}"></script>
 </body>

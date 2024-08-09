@@ -1,14 +1,13 @@
+import {PORT, username} from "../info/user_info.js";
 let chart_contributions = document.querySelector('#languages')
 
-const PORT = "http://127.0.0.1:3000";
-let url = `${PORT}/user/languages/KietCSE`;
+let url = `${PORT}/user/languages/${username}`;
 
 let xValues = [], yValues = [];
 
 fetch(url)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         xValues = Object.keys(data);
         yValues = Object.values(data);
         new Chart(chart_contributions, {
@@ -22,6 +21,9 @@ fetch(url)
             },
             options: {
                 plugins: {
+                    legend: {
+                        display: false,
+                    },
                     title: {
                         display: true,
                         text: "Languages"

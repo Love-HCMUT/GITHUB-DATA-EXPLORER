@@ -12,47 +12,34 @@ def Home(request):
     return render(request, 'user_index.html')
 
 
-async def GetDataActivity(request): 
+async def GetDataActivity(request, username): 
     try: 
-        data = await analysisUser.GetUserActivies('krahets')
+        data = await analysisUser.GetUserActivies(username)
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
 
-# Create your views here.
-# def Homes(request):
-#     return render(request, 'index.html')
 
 # Create your views here.
-async def GetData(request):
-    data = await analysisdata.gather_repo_data('KietCSE')
-    # print(data)
-    return JsonResponse(data, safe=False)
+async def GetData(request, username):
+    try:
+        data = await analysisdata.gather_repo_data(username)
+        return JsonResponse(data, safe=False, status = 200)
+    except Exception as e:
+        return HttpResponse(status = 404)
 
-async def GetMonths(request):
-    data = await analysisdata.data_4months('KietCSE')
-    # print(data)
-    return JsonResponse(data, safe=False)
+async def GetMonths(request, username):
+    try:
+        data = await analysisdata.data_4months(username)
+        return JsonResponse(data, safe=False, status = 200)
+    except Exception as e:
+        return HttpResponse(status = 404)
 
-# Create your views here.
-def test(request):
-    return render(request, 'user_index.html')
     
-async def languages(request, username = 'KietCSE'):
+async def languages(request, username):
     data = {}
     try:
         data = await analysis.get_languages(username)
+        return JsonResponse(data, status = 200)
     except Exception as e:
-        print(e)
-        data = {
-            'HTML': 55.0,
-            'Jupyter Notebook': 22.4,
-            'TeX': 7.7,
-            'Python': 0.8,
-            'Java': 1.9,
-            'Batchfile': 0.0,
-            'C++': 12.0,
-            'JavaScript': 0.0   
-        }
-    finally:
-        return JsonResponse(data)
+        return HttpResponse(status = 404)

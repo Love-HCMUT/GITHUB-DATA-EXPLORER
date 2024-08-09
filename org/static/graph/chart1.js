@@ -1,14 +1,12 @@
 import { fetchAPI } from "../fetch/fetchdata1.js";
-
-const PORT = "http://127.0.0.1:3000";
+import {PORT, orgname} from "../info/org_info.js";
 
 async function CreateOrgInformation() {
     // Fetch data from the API
-    let data = await fetchAPI(`${PORT}/org/data/`);
+    let data = await fetchAPI(`${PORT}/org/data/${orgname}`);
 
     let NameContributor = Object.keys(data.top10)
     let DataContributor = Object.values(data.top10)
-
     const ctx = document.getElementById('myChart1');
     new Chart(ctx, {
         type: 'bar',

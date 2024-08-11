@@ -24,10 +24,10 @@ fetch(url)
                     legend: {
                         display: false,
                     },
-                    title: {
-                        display: true,
-                        text: "Languages"
-                    }
+                    // title: {
+                    //     display: true,
+                    //     text: "Languages"
+                    // }
                 }
             }
         });

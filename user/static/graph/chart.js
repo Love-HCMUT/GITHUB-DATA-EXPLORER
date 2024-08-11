@@ -152,14 +152,14 @@ async function CreateOrgInformation() {
             },
           },
         },
-        title: {
-          display: true,
-          text: "Total Languages",
-          color: "black",
-          font: {
-            size: 20,
-          },
-        },
+        // title: {
+        //   display: true,
+        //   text: "Total Languages",
+        //   color: "black",
+        //   font: {
+        //     size: 20,
+        //   },
+        // },
       },
       layout: {
         padding: 20,
@@ -242,14 +242,14 @@ async function CreateChartByMonth(){
               legend: {
                 display: false
               },
-              title: {
-                  display: true,
-                  text: 'Contributions by Month',
-                  color: 'black',
-                  font: {
-                      size: 20
-                  }
-              }
+              // title: {
+              //     display: true,
+              //     text: 'Contributions by Month',
+              //     color: 'black',
+              //     font: {
+              //         size: 20
+              //     }
+              // }
           }
       }
   });

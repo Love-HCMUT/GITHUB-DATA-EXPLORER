@@ -1,7 +1,7 @@
-import {PORT, username} from "../info/user_info.js";
+import {PORT, username, TOKEN} from "../info/user_info.js";
 let chart_contributions = document.querySelector('#languages')
 
-let url = `${PORT}/user/languages/${username}`;
+let url = `${PORT}/user/languages/${username}/${TOKEN}`;
 
 let xValues = [], yValues = [];
 

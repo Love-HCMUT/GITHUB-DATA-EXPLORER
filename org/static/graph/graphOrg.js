@@ -1,8 +1,8 @@
 import { fetchAPI } from "../fetch/fetchOrg.js"
-import {PORT, orgname} from "../info/org_info.js"
+import {PORT, orgname, TOKEN} from "../info/org_info.js"
 
 async function CreateOrgInformation() {
-    let data = await fetchAPI(`${PORT}/org/infor/${orgname}`)
+    let data = await fetchAPI(`${PORT}/org/infor/${orgname}/${TOKEN}`)
     const org = document.querySelector('.org-data')
     org.innerHTML = `
         <div class="part1">           

@@ -1,7 +1,7 @@
-import {PORT, orgname} from "../info/org_info.js";
-let chart_contributions = document.querySelector('#contributions');
+import {PORT, orgname, TOKEN} from "../info/org_info.js";
+let chart = document.querySelector('#contributions');
 
-let url = `${PORT}/org/contributions/${orgname}`;
+let url = `${PORT}/org/contributions/${orgname}/${TOKEN}`;
 
 let xValues = [], yValues = [];
 
@@ -10,7 +10,7 @@ fetch(url)
     .then(data => {
         xValues = Object.keys(data);
         yValues = Object.values(data);
-        new Chart(chart_contributions, {
+        new Chart(chart, {
             type: "bar",
             data: {
                 labels: xValues,

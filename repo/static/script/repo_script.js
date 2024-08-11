@@ -1,7 +1,7 @@
-import {PORT, owner, repo} from '../info/repo_info.js'
+import {PORT, owner, repo, TOKEN} from '../info/repo_info.js'
 let repoInfo = document.querySelector('.org-data')
 
-let url = `${PORT}/repo/info/${owner}/${repo}`;
+let url = `${PORT}/repo/info/${owner}/${repo}/${TOKEN}`;
 
 fetch(url)
     .then(response => response.json())

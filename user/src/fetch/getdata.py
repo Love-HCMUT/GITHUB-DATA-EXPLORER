@@ -4,12 +4,11 @@ import aiohttp
 from datetime import datetime, timedelta
 TOKEN = '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'
 
-HEADERS = {
-    "Accept": "application/vnd.github+json",
-    "Authorization" : f"Bearer {TOKEN}"
-}
-
-async def fetch_json(urls):
+async def fetch_json(urls, TOKEN):
+    HEADERS = {
+        "Accept": "application/vnd.github+json",
+        "Authorization" : f"Bearer {TOKEN}"
+    }
     async with aiohttp.ClientSession() as session:
         try: 
             async with session.get(urls, headers=HEADERS) as response:
@@ -26,39 +25,39 @@ async def fetch_json(urls):
             print(f"An error has occurred: {err}")
 
 # Get info
-async def get_info(user):
+async def get_info(user, TOKEN):
     url = f"https://api.github.com/users/{user}"
-    data = await fetch_json(url)
+    data = await fetch_json(url, TOKEN)
     return data
 
 # Get list of repo
-async def get_user_repos(user):
+async def get_user_repos(user, TOKEN):
     url = f"https://api.github.com/users/{user}/repos"
-    data = await fetch_json(url)
+    data = await fetch_json(url, TOKEN)
     return data
 
 # Get repo's contributors 
-async def get_repo_contributors(user,repo):
+async def get_repo_contributors(user,repo, TOKEN):
     url = f"https://api.github.com/repos/{user}/{repo}/contributors"
-    return await fetch_json(url)
+    return await fetch_json(url, TOKEN)
 
 # Get repo's stars
-async def get_repo_stars(user, repo):
+async def get_repo_stars(user, repo, TOKEN):
     url = f"https://api.github.com/repos/{user}/{repo}"
-    repo_data = await fetch_json(url)
+    repo_data = await fetch_json(url, TOKEN)
     if repo_data:
         return repo_data.get('stargazers_count', 0)
     return 0
 
 # Get repo's pull requests
-async def get_repo_pull_requests(user, repo):
+async def get_repo_pull_requests(user, repo, TOKEN):
     total_prs = 0
     page = 1
     per_page = 100
     url = f"https://api.github.com/repos/{user}/{repo}/pulls?state=all&per_page={per_page}&page={page}"
 
     while True:
-        pulls = await fetch_json(url)
+        pulls = await fetch_json(url, TOKEN)
         if not pulls:
             break
         total_prs += len(pulls)
@@ -68,14 +67,14 @@ async def get_repo_pull_requests(user, repo):
     return total_prs
 
 # Get repo's merge pull requests
-async def get_repo_merged_pull_requests(user, repo):
+async def get_repo_merged_pull_requests(user, repo, TOKEN):
     merged_prs = 0
     page = 1
     per_page = 100
     url = f"https://api.github.com/repos/{user}/{repo}/pulls?state=all&per_page={per_page}&page={page}"
 
     while True:
-        pulls = await fetch_json(url)
+        pulls = await fetch_json(url, TOKEN)
         if not pulls:
             break
         for pr in pulls:
@@ -88,12 +87,12 @@ async def get_repo_merged_pull_requests(user, repo):
 
 
 
-async def get_repo_commits_by_month(user, repo, since, until):
+async def get_repo_commits_by_month(user, repo, since, until, TOKEN):
     url = f"https://api.github.com/repos/{user}/{repo}/commits?since={since}&until={until}"
-    return await fetch_json(url)
+    return await fetch_json(url, TOKEN)
 
-async def get_contributions_by_member(user, since, until):
-    repos = await get_user_repos(user)
+async def get_contributions_by_member(user, since, until, TOKEN):
+    repos = await get_user_repos(user, TOKEN)
 
     contributions_by_member = {}
 
@@ -103,7 +102,8 @@ async def get_contributions_by_member(user, since, until):
                 user,
                 repo['name'],
                 since,
-                until
+                until,
+                TOKEN
             )
             if commits:
                 for commit in commits:
@@ -121,7 +121,7 @@ async def get_contributions_by_member(user, since, until):
 
     return contributions_by_member
 
-async def get_contributions_last_6_months(user):
+async def get_contributions_last_6_months(user, TOKEN):
     contributions_by_month = {}
 
     for i in range(4):
@@ -132,6 +132,6 @@ async def get_contributions_last_6_months(user):
         until = end_date.isoformat()
 
         month_name = end_date.strftime("%m/%Y")
-        contributions_by_month[month_name] = await get_contributions_by_member(user, since, until)
+        contributions_by_month[month_name] = await get_contributions_by_member(user, since, until, TOKEN)
 
     return contributions_by_month

@@ -1,8 +1,8 @@
-import {PORT, owner, repo} from '../info/repo_info.js'
+import {PORT, owner, repo, TOKEN} from '../info/repo_info.js'
 
 let chart = document.querySelector('#languages');
 
-let url = `${PORT}/repo/languages/${owner}/${repo}`;
+let url = `${PORT}/repo/languages/${owner}/${repo}/${TOKEN}`;
 
 let xValues = [], yValues = [];
 fetch(url)
@@ -16,14 +16,42 @@ fetch(url)
                 labels: xValues,
                 datasets: [{
                     backgroundColor: shuffle(colors),
+                    borderColor: shuffle(colors),
+                    borderWidth: 1,
                     data: yValues
                 }]
             },
             options: {
                 plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            generateLabels: (chart) => {
+                                const data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map((label, i) => {
+                                        const percentage = data.datasets[0].data[i].toString() + "%";
+                                        return {
+                                            text: `${label}: ${percentage}`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].borderColor[i],
+                                            lineWidth: data.datasets[0].borderWidth,
+                                            hidden: !chart.getDataVisibility(i),
+                                            index: i,
+                                        };
+                                    });
+                                }
+                                return [];
+                            }
+                        }
+                    },
                     title: {
                         display: true,
-                        text: "Languages"
+                        text: "Languages",
+                        color: "black",
+                        font: {
+                            size: 20,
+                        }
                     }
                 }
             }

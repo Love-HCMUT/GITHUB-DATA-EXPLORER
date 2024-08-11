@@ -1,9 +1,9 @@
 import {fetchAPI} from '../fetch/fetch1.js'
-import {PORT, owner, repo} from '../info/repo_info.js'
+import {PORT, owner, repo, TOKEN} from '../info/repo_info.js'
 
 // DRAW BAR GRAPH FOR CONTRIBUTORS 
 async function RepoContributorGraph() {
-    const contributors = await fetchAPI(`${PORT}/repo/contributor/${owner}/${repo}`)
+    const contributors = await fetchAPI(`${PORT}/repo/contributor/${owner}/${repo}/${TOKEN}`)
     let NameContributor = Object.keys(contributors)
     let DataContributor = Object.values(contributors)
 
@@ -57,7 +57,7 @@ RepoContributorGraph()
 
 // DRAW LINE GRAPH FOR COMMIT IN 6 MONTHS 
 async function RepoCommmitsGraph() {
-    const commitLine = await fetchAPI(`${PORT}/repo/commit/${owner}/${repo}`)
+    const commitLine = await fetchAPI(`${PORT}/repo/commit/${owner}/${repo}/${TOKEN}`)
     let Months = Object.keys(commitLine).reverse()
     let Commits = Object.values(commitLine).reverse()
     const char = document.getElementById('Commit');
@@ -90,7 +90,7 @@ RepoCommmitsGraph()
 
 // DRAW LINE GRAPH FOR ISSUES IN 6 MONTHS 
 async function RepoIssuesGraph() {
-  const issuesLine = await fetchAPI(`${PORT}/repo/issues/${owner}/${repo}`)
+  const issuesLine = await fetchAPI(`${PORT}/repo/issues/${owner}/${repo}/${TOKEN}`)
   let Months = Object.keys(issuesLine).reverse()
   let Issues = Object.values(issuesLine).reverse()
   const chart = document.getElementById('Issue');
@@ -123,7 +123,7 @@ RepoIssuesGraph()
 
 // DRAW LINE GRAPH FOR PULL REQUEST IN 6 MONTHS 
 async function RepoPullsGraph() {
-  const pullsLine = await fetchAPI(`${PORT}/repo/pulls/${owner}/${repo}`)
+  const pullsLine = await fetchAPI(`${PORT}/repo/pulls/${owner}/${repo}/${TOKEN}`)
   let Months = Object.keys(pullsLine)
   let Pulls = Object.values(pullsLine)
   const ch = document.getElementById('Pull');

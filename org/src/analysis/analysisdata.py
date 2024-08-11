@@ -52,10 +52,10 @@ def update_data(data, org):
     return data
 
 
-async def gather_repo_data(org):
+async def gather_repo_data(org, TOKEN):
     data = {"repos": {}}
     
-    repos = await getdata.get_org_repos(org)
+    repos = await getdata.get_org_repos(org, TOKEN)
     if repos:
         for repo in repos:
             repo_name = repo['name']
@@ -63,7 +63,7 @@ async def gather_repo_data(org):
             member_commits = {}
             
             # Get contributors info
-            contributors = await getdata.get_repo_contributors(org, repo_name)
+            contributors = await getdata.get_repo_contributors(org, repo_name, TOKEN)
             if isinstance(contributors, list):
                 for contributor in contributors:
                     repo_contributions += contributor.get('contributions', 0)
@@ -80,7 +80,7 @@ async def gather_repo_data(org):
             }
 
     # Get organization members
-    members = await getdata.get_org_members(org)
+    members = await getdata.get_org_members(org, TOKEN)
     if members:
         data['members'] = [member['login'] for member in members]
 

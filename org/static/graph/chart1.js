@@ -1,9 +1,9 @@
 import { fetchAPI } from "../fetch/fetchdata1.js";
-import {PORT, orgname} from "../info/org_info.js";
+import {PORT, orgname, TOKEN} from "../info/org_info.js";
 
 async function CreateOrgInformation() {
     // Fetch data from the API
-    let data = await fetchAPI(`${PORT}/org/data/${orgname}`);
+    let data = await fetchAPI(`${PORT}/org/data/${orgname}/${TOKEN}`);
 
     let NameContributor = Object.keys(data.top10)
     let DataContributor = Object.values(data.top10)

@@ -20,11 +20,11 @@ from . import views
 
 urlpatterns = [
     path('', views.Home),
-    path('contributor/<str:owner>/<str:repo>', views.GetRepoData),
-    path('commit/<str:owner>/<str:repo>', views.GetRepoData2),
-    path('issues/<str:owner>/<str:repo>', views.GetRepoData3),
-    path('pulls/<str:owner>/<str:repo>', views.GetRepoData4),
-    path('languages/<str:owner>/<str:repo>', views.repo_languages, name = 'repo_languages'),
-    path('info/<str:owner>/<str:repo>', views.repo_info, name = 'repo_info'),
-    path('contributors/<str:owner>/<str:repo>', views.top_contributors_languages, name = 'top_contributors_languages'),
+    path('contributor/<str:owner>/<str:repo>/<str:TOKEN>', views.GetRepoData),
+    path('commit/<str:owner>/<str:repo>/<str:TOKEN>', views.GetRepoData2),
+    path('issues/<str:owner>/<str:repo>/<str:TOKEN>', views.GetRepoData3),
+    path('pulls/<str:owner>/<str:repo>/<str:TOKEN>', views.GetRepoData4),
+    path('languages/<str:owner>/<str:repo>/<str:TOKEN>', views.repo_languages, name = 'repo_languages'),
+    path('info/<str:owner>/<str:repo>/<str:TOKEN>', views.repo_info, name = 'repo_info'),
+    path('contributors/<str:owner>/<str:repo>/<str:TOKEN>', views.top_contributors_languages, name = 'top_contributors_languages'),
 ]

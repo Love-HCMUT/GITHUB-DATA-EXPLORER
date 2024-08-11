@@ -66,10 +66,10 @@ def update_data(data, user):
     return data
     
 
-async def gather_repo_data(user):
+async def gather_repo_data(user, TOKEN):
     data = {"repos": {}}
     
-    repos = await getdata.get_user_repos(user)
+    repos = await getdata.get_user_repos(user, TOKEN)
     if repos:
         for repo in repos:
             repo_name = repo['name']
@@ -81,7 +81,7 @@ async def gather_repo_data(user):
             repo_merged_prs = 0
 
             # Lấy thông tin contributors
-            contributors = await getdata.get_repo_contributors(user, repo_name)
+            contributors = await getdata.get_repo_contributors(user, repo_name, TOKEN)
             if isinstance(contributors, list):
                 for contributor in contributors:
                     repo_contributions += contributor.get('contributions', 0)
@@ -92,19 +92,19 @@ async def gather_repo_data(user):
                 print(f"Unexpected contributors format for repo {repo_name}:", contributors)
 
             # # Lấy thông tin languages
-            languages = await getdata.fetch_json(f"https://api.github.com/repos/{user}/{repo_name}/languages")
+            languages = await getdata.fetch_json(f"https://api.github.com/repos/{user}/{repo_name}/languages", TOKEN)
             if languages:
                 for language, lines in languages.items():
                     repoLanguages[language] = repoLanguages.get(language, 0) + lines
 
             # Lấy số sao của repo
-            repo_stars = await getdata.get_repo_stars(user, repo_name)
+            repo_stars = await getdata.get_repo_stars(user, repo_name, TOKEN)
 
             # Lấy số PR của repo
-            repo_prs = await getdata.get_repo_pull_requests(user, repo_name)
+            repo_prs = await getdata.get_repo_pull_requests(user, repo_name, TOKEN)
 
             # Lấy số PR đã merge của repo
-            repo_merged_prs = await getdata.get_repo_merged_pull_requests(user, repo_name)
+            repo_merged_prs = await getdata.get_repo_merged_pull_requests(user, repo_name, TOKEN)
 
             # Lưu thông tin vào data
             data["repos"][repo_name] = {
@@ -117,7 +117,7 @@ async def gather_repo_data(user):
             }
     
     data = update_data(data, user)
-    info = await getdata.get_info(user)
+    info = await getdata.get_info(user, TOKEN)
     data['info'] = {
         "login": info.get("login"),
         "avatar_url": info.get("avatar_url"),
@@ -130,8 +130,8 @@ async def gather_repo_data(user):
     }
     return data
 
-async def data_4months(user):
-    contributions = await getdata.get_contributions_last_6_months(user)
+async def data_4months(user, TOKEN):
+    contributions = await getdata.get_contributions_last_6_months(user, TOKEN)
     # Tạo một dict mới chỉ chứa những tháng mà user đóng góp
     filtered_contributions = {}
 

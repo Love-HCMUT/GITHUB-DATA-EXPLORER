@@ -1,4 +1,4 @@
-const PORT = "http://127.0.0.1:3000";
+import { PORT, TOKEN} from "./secret.js"
 let submit = document.getElementById('submit');
 submit.addEventListener('click', (event) => {
     event.preventDefault();
@@ -14,5 +14,10 @@ submit.addEventListener('click', (event) => {
     else {
         alert('Owner name and Repository name cannot be blank.');
     }
-    localStorage.setItem('token', token.value);
+    if (token.value !== '') {
+        localStorage.setItem('token', token.value);
+    }
+    else {
+        localStorage.setItem('token', TOKEN)
+    }
 })

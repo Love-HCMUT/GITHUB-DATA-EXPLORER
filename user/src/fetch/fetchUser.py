@@ -8,12 +8,11 @@ import requests
 
 TOKEN = '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'
 
-HEADERS = {
-    "Accept": "application/vnd.github+json",
-    "Authorization" : f"Bearer {TOKEN}"
-}
-
-async def fetchAPI(urls):
+async def fetchAPI(urls, TOKEN):
+    HEADERS = {
+        "Accept": "application/vnd.github+json",
+        "Authorization" : f"Bearer {TOKEN}"
+    }
     async with aiohttp.ClientSession() as session:
         try: 
             async with session.get(urls, headers=HEADERS) as response:
@@ -43,7 +42,7 @@ def CreateListOfMonth(data, numberOfMonths):
 
 
 # FETCH ACTICITIES WITHIN RECENT 3 MONTHS 
-async def fetchTimeActivity(username): 
+async def fetchTimeActivity(username, TOKEN): 
     perpage = 30
     page = 1 
     month = 0  
@@ -52,7 +51,7 @@ async def fetchTimeActivity(username):
     previous_months = datetime.now(pytz.UTC).strftime('%B') #get curent month 
     
     while (month < 7): 
-        data = await fetchAPI(f'https://api.github.com/users/{username}/events?per_page={perpage}&page={page}')
+        data = await fetchAPI(f'https://api.github.com/users/{username}/events?per_page={perpage}&page={page}', TOKEN)
         list = np.array(data)
         if (list.size == 0): 
             activities.update({previous_months : count})

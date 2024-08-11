@@ -8,12 +8,11 @@ import requests
 
 TOKEN = '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'
 
-HEADERS = {
-    "Accept": "application/vnd.github+json",
-    "Authorization" : f"Bearer {TOKEN}"
-}
-
-async def fetchAPI(urls):
+async def fetchAPI(urls, TOKEN):
+    HEADERS = {
+        "Accept": "application/vnd.github+json",
+        "Authorization" : f"Bearer {TOKEN}"
+    }
     async with aiohttp.ClientSession() as session:
         try: 
             async with session.get(urls, headers=HEADERS) as response:
@@ -31,8 +30,8 @@ async def fetchAPI(urls):
 
 
 
-async def fetchOrgInfo(orgname): 
-    data = await fetchAPI(f'https://api.github.com/orgs/{orgname}')
+async def fetchOrgInfo(orgname, TOKEN): 
+    data = await fetchAPI(f'https://api.github.com/orgs/{orgname}', TOKEN)
     list = ['login', 'email', 'followers', 'created_at', 'description', 'location', 'avatar_url']
     Infor = {}
     for e in data.keys(): 
@@ -44,7 +43,7 @@ async def fetchOrgInfo(orgname):
     page = 1
     countMem = 0
     while (True): 
-        data = await fetchAPI(f'https://api.github.com/orgs/{orgname}/members?per_page={perpage}&page={page}')
+        data = await fetchAPI(f'https://api.github.com/orgs/{orgname}/members?per_page={perpage}&page={page}', TOKEN)
         members = np.array(data)
         if (members.size == 0): break 
         countMem += members.size

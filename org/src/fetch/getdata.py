@@ -4,12 +4,11 @@ from datetime import datetime, timedelta
 
 TOKEN = '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'
 
-HEADERS = {
-    "Accept": "application/vnd.github+json",
-    "Authorization" : f"Bearer {TOKEN}"
-}
-
-async def fetch_json(urls):
+async def fetch_json(urls, TOKEN):
+    HEADERS = {
+        "Accept": "application/vnd.github+json",
+        "Authorization" : f"Bearer {TOKEN}"
+    }
     async with aiohttp.ClientSession() as session:
         try: 
             async with session.get(urls, headers=HEADERS) as response:
@@ -28,24 +27,24 @@ async def fetch_json(urls):
 
 
 # Get list of repo
-async def get_org_repos(org):
+async def get_org_repos(org, TOKEN):
     url = f"https://api.github.com/orgs/{org}/repos"
-    data = await fetch_json(url)
+    data = await fetch_json(url, TOKEN)
     return data
 
 # Function to get commits from a repository since a specific date
-async def get_repo_commits(org, repo, since):
+async def get_repo_commits(org, repo, since, TOKEN):
     url = f"https://api.github.com/repos/{org}/{repo}/commits?since={since}"
-    return await fetch_json(url)
+    return await fetch_json(url, TOKEN)
 
 # Function to get contributors from a repository in the last six months
-async def get_repo_contributors(org, repo):
+async def get_repo_contributors(org, repo, TOKEN):
     # Calculate the date six months ago
     six_months_ago = datetime.now() - timedelta(days=6*30)
     since = six_months_ago.isoformat()
 
     # Fetch commits since the calculated date
-    commits = await get_repo_commits(org, repo, since)
+    commits = await get_repo_commits(org, repo, since, TOKEN)
     if not commits:
         return []
 
@@ -65,9 +64,9 @@ async def get_repo_contributors(org, repo):
     return [{"login": login, "contributions": count} for login, count in contributors.items()]
 
 # Get org's member
-async def get_org_members(orgname):
+async def get_org_members(orgname, TOKEN):
     url = f"https://api.github.com/orgs/{orgname}/members"
-    return await fetch_json(url)
+    return await fetch_json(url, TOKEN)
 
 
 

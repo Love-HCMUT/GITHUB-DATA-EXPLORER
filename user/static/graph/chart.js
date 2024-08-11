@@ -1,9 +1,9 @@
 import { fetchAPI } from "../fetch/fetchdata.js"
-import {PORT, username} from "../info/user_info.js"
+import {PORT, username, TOKEN} from "../info/user_info.js"
 
 
 async function CreateOrgInformation() {
-    let data = await fetchAPI(`${PORT}/user/data/${username}`)
+    let data = await fetchAPI(`${PORT}/user/data/${username}/${TOKEN}`)
     const user = document.querySelector('.org-data')
 
 
@@ -194,7 +194,7 @@ async function CreateOrgInformation() {
 }
 
 async function CreateChartByMonth(){
-  let data = await fetchAPI(`${PORT}/user/months/${username}`)
+  let data = await fetchAPI(`${PORT}/user/months/${username}/${TOKEN}`)
   // Chuyển đổi dữ liệu để phù hợp với định dạng biểu đồ
   const labels = Object.keys(data).reverse(); // Đổi tên tháng từ xa nhất đến gần nhất
   const values = Object.values(data).reverse(); // Giá trị tương ứng

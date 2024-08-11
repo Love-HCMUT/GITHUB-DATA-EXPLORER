@@ -10,35 +10,35 @@ def Home(request):
     return render(request, 'repo_index.html')
 
 # Create your views here.
-async def GetRepoData(request, owner, repo):
+async def GetRepoData(request, owner, repo, TOKEN):
     try: 
-        data = await analysis1.GetRepoContributors(owner, repo)
+        data = await analysis1.GetRepoContributors(owner, repo, TOKEN)
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
 
 
 # Get Commit from repo
-async def GetRepoData2(request, owner, repo):
+async def GetRepoData2(request, owner, repo, TOKEN):
     try: 
-        data = await analysis1.GetRepoCommits(owner, repo)
+        data = await analysis1.GetRepoCommits(owner, repo, TOKEN)
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
 
 
 # Get Issues from repo
-async def GetRepoData3(request, owner, repo):
+async def GetRepoData3(request, owner, repo, TOKEN):
     try: 
-        data = await analysis1.GetRepoIssues(owner, repo)
+        data = await analysis1.GetRepoIssues(owner, repo, TOKEN)
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
     
 # Get Pull request from repo
-async def GetRepoData4(request, owner, repo):
+async def GetRepoData4(request, owner, repo, TOKEN):
     try: 
-        data = await analysis1.GetRepoPulls(owner, repo)
+        data = await analysis1.GetRepoPulls(owner, repo, TOKEN)
         return JsonResponse(data, status=200)
     except Exception as e:
         return HttpResponse(status=404)
@@ -46,24 +46,24 @@ async def GetRepoData4(request, owner, repo):
 
 # Create your views here.
 
-async def repo_languages(request, owner, repo):
+async def repo_languages(request, owner, repo, TOKEN):
     try:
-        data = await analysis.get_percent_languages(owner, repo)
+        data = await analysis.get_percent_languages(owner, repo, TOKEN)
         return JsonResponse(data)
     except Exception as e:
         return HttpResponse(status=404)
         
     
-async def repo_info(request, owner = 'RavenTheShadow', repo = 'BTL_LTNC'):
+async def repo_info(request, owner, repo, TOKEN):
     try:
-        data = await analysis.get_repo_info(owner, repo)
+        data = await analysis.get_repo_info(owner, repo, TOKEN)
         return JsonResponse(data)
     except Exception as e:
         return HttpResponse(status=404)
 
-async def top_contributors_languages(request, owner = 'RavenTheshadow', repo = 'BTL_LTNC'):
+async def top_contributors_languages(request, owner, repo, TOKEN):
     try:
-        data = await analysis.get_top_contributors_languages(owner, repo)
+        data = await analysis.get_top_contributors_languages(owner, repo, TOKEN)
         return JsonResponse(data)
     except Exception as e:
         return HttpResponse(status=404)

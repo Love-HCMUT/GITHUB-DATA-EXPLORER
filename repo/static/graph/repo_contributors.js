@@ -1,8 +1,8 @@
-import {PORT, owner, repo} from '../info/repo_info.js'
+import {PORT, owner, repo, TOKEN} from '../info/repo_info.js'
 
 let chart = document.querySelector('#contributors');
 
-let url = `${PORT}/repo/contributors/${owner}/${repo}`;
+let url = `${PORT}/repo/contributors/${owner}/${repo}/${TOKEN}`;
 
 fetch(url)
     .then(response => response.json())

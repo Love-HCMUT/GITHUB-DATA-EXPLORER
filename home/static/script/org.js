@@ -5,7 +5,7 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
 
     let orgname = document.getElementById('orgname').value.trim();
     let token = document.getElementById('token').value.trim();
-
+    if(!token) token = TOKEN;
     try {
         const response = await fetch(`https://api.github.com/orgs/${orgname}`, {
             headers: {

@@ -6,6 +6,7 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
     let username = document.getElementById('username').value.trim();
     let token = document.getElementById('token').value.trim();
 
+    if(!token) token = TOKEN;
     try {
         const response = await fetch(`https://api.github.com/users/${username}`, {
             headers: {

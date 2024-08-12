@@ -5,13 +5,13 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
     const owner = document.getElementById('owner').value.trim();
     const repo = document.getElementById('repo').value.trim();
     let token = document.getElementById('token').value.trim();
-
+    if(!token) token = TOKEN;
     if (!owner || !repo || !token) {
         alert('Owner name, repository name, and token are required.');
         return;
     }
 
-
+    
     try {
         const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
             headers: {

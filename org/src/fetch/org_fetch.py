@@ -112,7 +112,7 @@ async def fetch_repo_commit_since_until(owner, repo, since, until, TOKEN):
     :param until: End time.
     :return: The number of commits.
     """
-    DEMAND = 10
+    DEMAND = 5
     page = 1
     perpage = 100 
     result = 0

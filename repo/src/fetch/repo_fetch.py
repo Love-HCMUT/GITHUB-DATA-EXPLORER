@@ -4,6 +4,7 @@ import requests
 from datetime import datetime, timezone
 import pytz
 from dateutil.relativedelta import relativedelta
+import time
 
 DEFAULT_TOKEN = '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'
 
@@ -148,3 +149,44 @@ async def fetch_repo_commits(owner, repo, TOKEN):
         commits = await fetch_repo_commit_since_until(owner, repo, TOKEN, since, until)
         result.update({month_name : commits})
     return result
+
+# async def fetch_repo_commit_by_contributor(owner, repo, contributor, TOKEN):
+#     page = 1
+#     perpage = 100
+#     result = []
+#     # while True:
+#     corotines = [fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?author={contributor}&page={test}&per_page={perpage}', TOKEN) for test in range(page, page + 5)]
+#     test = await asyncio.gather(*corotines)
+#     # print(test[0]['sha'])
+#     # print(test[0])
+#     # print(type(test[0]))
+#     for commits in test:
+#         for commit in commits:
+#             result.append(commit['sha'])
+#     print(len(test[0]))
+#     print(len(test))
+#         # page += 1
+#     return result
+        
+
+# async def contributor_languages(owner, repo, TOKEN = DEFAULT_TOKEN, DEMAND = 3):
+#     contributors = await fetch_repo_contributors(owner, repo, TOKEN)
+#     number = DEMAND if len(contributors) > DEMAND else len(contributors)
+#     contributors = list(contributors.keys())[:number]
+#     result = {}
+#     # for contributor in contributors:
+#     #     number_commits = await fetch_repo_commit_by_contributor(owner, repo, contributor, TOKEN)
+#     #     result.update({contributor: number_commits})
+#     gather = [fetch_repo_commit_by_contributor(owner, repo, contributor, TOKEN) for contributor in contributors]
+#     commits = await asyncio.gather(*gather)
+#     for i in range(len(contributors)):
+#         result.update({contributors[i]: commits[i]})
+#     return result
+
+# # start = time.time()
+# # # print(asyncio.run(contributor_languages('RavenTheshadow', 'BTL_LTNC')))
+# # # print(asyncio.run(fetch_repo_commit_by_contributor('RavenTheshadow', 'BTL_LTNC', 'Hailam2104', DEFAULT_TOKEN)))
+# # # asyncio.run(fetch_repo_commit_by_contributor('RavenTheshadow', 'BTL_LTNC', 'RavenTheshadow', DEFAULT_TOKEN))
+# # # asyncio.run(fetch_repo_commit_by_contributor('RavenTheshadow', 'BTL_LTNC', 'KietCSE', DEFAULT_TOKEN))
+# # end = time.time()
+# # print('Time:', end - start)

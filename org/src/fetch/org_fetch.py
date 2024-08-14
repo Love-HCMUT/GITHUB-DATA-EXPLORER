@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import pytz
 from dateutil.relativedelta import relativedelta
 
-TOKEN = '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'
+DEFAULT_TOKEN = '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'
 
 async def fetchAPI(urls, TOKEN):
     HEADERS = {
@@ -88,17 +88,20 @@ async def fetch_repos_name(orgname, TOKEN):
     :param orgname: Name of the organization.
     :return: a list contains name of all repos
     """
-    data = []
+    DEMAND = 5
+    result = []
     page = 1
-    perpage = 30
+    perpage = 100
     while (True):
-        repos = await fetchAPI(f'https://api.github.com/orgs/{orgname}/repos?page={page}&per_page={perpage}', TOKEN)
-        if (len(repos) == 0): break
-        for repo in repos:
-            if not repo['fork'] and repo['size']:
-                data.append(repo['name'])
-        page += 1
-    return data
+        coroutines = [fetchAPI(f'https://api.github.com/orgs/{orgname}/repos?page={page + x}&per_page={perpage}', TOKEN) for x in range(DEMAND)]
+        data = await asyncio.gather(*coroutines)
+        for repos in data:
+            for repo in repos:
+                if not repo['fork'] and repo['size']:
+                    result.append(repo['name'])
+        if (not all(data)): break
+        page += DEMAND
+    return result
 
 async def fetch_repo_commit_since_until(owner, repo, since, until, TOKEN):
     """
@@ -109,14 +112,18 @@ async def fetch_repo_commit_since_until(owner, repo, since, until, TOKEN):
     :param until: End time.
     :return: The number of commits.
     """
+    DEMAND = 5
     page = 1
     perpage = 100 
     result = 0
     while (True): 
-        data = await fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?since={since}&until={until}&per_page={perpage}&page={page}', TOKEN)
-        if (len(data) == 0): break
-        result += len(data)
-        page += 1
+        coroutines = [fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?since={since}&until={until}&per_page={perpage}&page={page + x}', TOKEN) for x in range(DEMAND)]
+        list_data = await asyncio.gather(*coroutines)
+        # if (len(data) == 0): break
+        for data in list_data:
+            result += len(data)
+        if (not all(list_data)): break
+        page += DEMAND
     return result 
 
 async def fetch_repo_commits(owner, repo, TOKEN):

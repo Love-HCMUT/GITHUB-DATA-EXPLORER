@@ -1,4 +1,5 @@
 from ..fetch import getdata
+import asyncio
 
 def is_member_org(repos, members):
     # Iterate through all repos
@@ -52,32 +53,59 @@ def update_data(data, org):
     return data
 
 
+
+async def one_repo(repo, data, org, TOKEN):
+    repo_name = repo['name']
+    repo_contributions = 0
+    member_commits = {}
+            
+    # Get contributors info
+    contributors = await getdata.get_repo_contributors(org, repo_name, TOKEN)
+    if isinstance(contributors, list):
+        for contributor in contributors:
+            repo_contributions += contributor.get('contributions', 0)
+            login = contributor.get('login')
+            if login:
+                member_commits[login] = member_commits.get(login, 0) + contributor.get('contributions', 0)
+    else:
+        print(f"Unexpected contributors format for repo {repo_name}:", contributors)
+
+    # Save info into data
+    data["repos"][repo_name] = {
+        "contributions": repo_contributions,
+        "memberCommits": member_commits
+    }
+    return data
+
+
 async def gather_repo_data(org, TOKEN):
     data = {"repos": {}}
     
     repos = await getdata.get_org_repos(org, TOKEN)
-    if repos:
-        for repo in repos:
-            repo_name = repo['name']
-            repo_contributions = 0
-            member_commits = {}
+    # if repos:
+    #     for repo in repos:
+    #         repo_name = repo['name']
+    #         repo_contributions = 0
+    #         member_commits = {}
             
-            # Get contributors info
-            contributors = await getdata.get_repo_contributors(org, repo_name, TOKEN)
-            if isinstance(contributors, list):
-                for contributor in contributors:
-                    repo_contributions += contributor.get('contributions', 0)
-                    login = contributor.get('login')
-                    if login:
-                        member_commits[login] = member_commits.get(login, 0) + contributor.get('contributions', 0)
-            else:
-                print(f"Unexpected contributors format for repo {repo_name}:", contributors)
+    #         # Get contributors info
+    #         contributors = await getdata.get_repo_contributors(org, repo_name, TOKEN)
+    #         if isinstance(contributors, list):
+    #             for contributor in contributors:
+    #                 repo_contributions += contributor.get('contributions', 0)
+    #                 login = contributor.get('login')
+    #                 if login:
+    #                     member_commits[login] = member_commits.get(login, 0) + contributor.get('contributions', 0)
+    #         else:
+    #             print(f"Unexpected contributors format for repo {repo_name}:", contributors)
 
-            # Save info into data
-            data["repos"][repo_name] = {
-                "contributions": repo_contributions,
-                "memberCommits": member_commits
-            }
+    #         # Save info into data
+    #         data["repos"][repo_name] = {
+    #             "contributions": repo_contributions,
+    #             "memberCommits": member_commits
+    #         }
+    coroutines = [one_repo(repo, data, org, TOKEN) for repo in repos]
+    await asyncio.gather(*coroutines)
 
     # Get organization members
     members = await getdata.get_org_members(org, TOKEN)

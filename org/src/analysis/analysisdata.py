@@ -52,6 +52,8 @@ def update_data(data, org):
 
     return data
 
+
+
 async def one_repo(repo, data, org, TOKEN):
     repo_name = repo['name']
     repo_contributions = 0

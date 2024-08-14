@@ -11,11 +11,11 @@ fetch(url)
         xValues = Object.keys(data);
         yValues = Object.values(data);
         new Chart(chart, {
-            type: "bar",
+            type: "line",
             data: {
                 labels: xValues,
                 datasets: [{
-                    backgroundColor: shuffle(colors),
+                    borderColor: shuffle(colors),
                     data: yValues
                 }]
             },
@@ -26,7 +26,11 @@ fetch(url)
                     },
                     title: {
                         display: true,
-                        text: "Contributions"
+                        text: "Contributions",
+                        color: "black",
+                        font: {
+                            size: 20,
+                        }
                     }
                 }
             }

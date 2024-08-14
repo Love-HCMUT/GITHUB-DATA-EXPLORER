@@ -82,23 +82,46 @@ async def fetch_repo_contributors(owner, repo, TOKEN):
         data.update({contributor['login']: contributor['contributions']})
     return data
 
+# async def fetch_repos_name(username, TOKEN):
+#     """
+#     Get list public repositories for the specified user.
+#     :param username: The handle for the GitHub user account.
+#     :return: a list contains name of all repos
+#     """
+#     data = []
+#     page = 1
+#     perpage = 30
+#     while (True):
+#         repos = await fetchAPI(f'https://api.github.com/users/{username}/repos?page={page}&per_page={perpage}', TOKEN)
+#         if (len(repos) == 0): break
+#         for repo in repos:
+#             if not repo['fork'] and repo['size']:
+#                 data.append(repo['name'])
+#         page += 1
+#     return data
+
 async def fetch_repos_name(username, TOKEN):
     """
     Get list public repositories for the specified user.
     :param username: The handle for the GitHub user account.
     :return: a list contains name of all repos
     """
-    data = []
+    DEMAND = 2
+    result = []
     page = 1
-    perpage = 30
+    perpage = 100
     while (True):
-        repos = await fetchAPI(f'https://api.github.com/users/{username}/repos?page={page}&per_page={perpage}', TOKEN)
-        if (len(repos) == 0): break
-        for repo in repos:
-            if not repo['fork'] and repo['size']:
-                data.append(repo['name'])
-        page += 1
-    return data
+        coroutines = [fetchAPI(f'https://api.github.com/users/{username}/repos?page={page + x}&per_page={perpage}', TOKEN) for x in range(DEMAND)]
+        data = await asyncio.gather(*coroutines)
+        for repos in data:
+            if not repos: continue
+            for repo in repos:
+                if not repo['fork'] and repo['size']:
+                    result.append(repo['name'])
+        if (not all(data)): break
+        page += DEMAND
+    return result
+
 
 async def fetch_repo_commit_since_until(owner, repo, since, until, TOKEN):
     """

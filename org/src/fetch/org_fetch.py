@@ -96,6 +96,7 @@ async def fetch_repos_name(orgname, TOKEN):
         coroutines = [fetchAPI(f'https://api.github.com/orgs/{orgname}/repos?page={page + x}&per_page={perpage}', TOKEN) for x in range(DEMAND)]
         data = await asyncio.gather(*coroutines)
         for repos in data:
+            if not repos: continue
             for repo in repos:
                 if not repo['fork'] and repo['size']:
                     result.append(repo['name'])
@@ -112,47 +113,139 @@ async def fetch_repo_commit_since_until(owner, repo, since, until, TOKEN):
     :param until: End time.
     :return: The number of commits.
     """
-    DEMAND = 5
     page = 1
     perpage = 100 
     result = 0
     while (True): 
-        coroutines = [fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?since={since}&until={until}&per_page={perpage}&page={page + x}', TOKEN) for x in range(DEMAND)]
-        list_data = await asyncio.gather(*coroutines)
-        # if (len(data) == 0): break
-        for data in list_data:
-            result += len(data)
-        if (not all(list_data)): break
-        page += DEMAND
-    return result 
+        data = await fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?since={since}&until={until}&per_page={perpage}&page={page}', TOKEN)
+        if (len(data) == 0): break
+        result += len(data)
+        page += 1
+    return result
+
+async def fetch_repo_commits_since(owner, repo, since, TOKEN):
+    page = 1
+    perpage = 100
+    result = []
+    while True:
+        data = await fetchAPI(f'https://api.github.com/repos/{owner}/{repo}/commits?since={since}&per_page={perpage}&page={page}', TOKEN)
+        if len(data) == 0: break
+        for commit in data:
+            result.append(commit['commit']['committer']['date'])
+        page += 1
+    return result     
+        
+
+# async def fetch_repo_commits(owner, repo, TOKEN):
+#     """
+#     Get the number of commits for the specified repo in the last 6 months.
+#     :param owner: The account owner of the repository. The name is not case sensitive.
+#     :param repo: The name of the repository without the .git extension. The name is not case sensitive.
+#     :return: a dictionary contains information about the number of commits in the last 6 months.
+#     """
+#     FORMAT_STRING = '%Y-%m-%dT%H:%M:%SZ'
+#     FORMAT_LABEL = '%d-%B'
+#     result = {}
+    
+#     until = datetime.now(pytz.UTC)
+#     temp = until
+#     until = until.strftime(FORMAT_STRING)
+#     since = temp.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+#     since = since.strftime(FORMAT_STRING)
+#     month_name = temp.strftime(FORMAT_LABEL)
+#     commits = await fetch_repo_commit_since_until(owner, repo, since, until, TOKEN)
+#     result.update({month_name : commits})
+
+#     for i in range(5): 
+#         until = datetime.now(pytz.UTC)
+#         since = until - relativedelta(months=(i+1))
+#         until = until - relativedelta(months=i)
+#         month_name = since.strftime(FORMAT_LABEL)
+#         until = until.strftime(FORMAT_STRING)
+#         since = since.strftime(FORMAT_STRING)
+#         commits = await fetch_repo_commit_since_until(owner, repo, since, until, TOKEN)
+#         print(since)
+#         result.update({month_name : commits})
+
+#     return result
 
 async def fetch_repo_commits(owner, repo, TOKEN):
+    FORMAT_STRING = '%Y-%m-%dT%H:%M:%SZ'
+    FORMAT_LABEL = '%d-%B'
+    result = {}
+    DEMAND = 6
+    # Declare time
+    today = datetime.now(pytz.UTC)
+    list_time = [today - relativedelta(months=x) for x in range(DEMAND, 0, -1)]
+    list_time.append(today)
+    
+    commits = await fetch_repo_commits_since(owner, repo, list_time[0], TOKEN)
+    
+    # Format time
+    list_time_formatted = [time.strftime(FORMAT_STRING) for time in list_time]
+    
+    # Labels
+    list_time_labels = [time.strftime(FORMAT_LABEL) for time in list_time]
+    
+    # Prepare
+    for label in list_time_labels:
+        result[label] = 0
+        
+    for date_commit in commits:
+        for i in range(len(list_time_formatted) - 1):
+            if list_time_formatted[i] <= date_commit < list_time_formatted[i + 1]:
+                result[list_time_labels[i + 1]] = result.get(list_time_labels[i + 1], 0) + 1
+        
+    return result
+    
+##########################################################################################
+async def get_org_contributions_last_6_months(orgname, TOKEN):
     """
-    Get the number of commits for the specified repo in the last 6 months.
-    :param owner: The account owner of the repository. The name is not case sensitive.
-    :param repo: The name of the repository without the .git extension. The name is not case sensitive.
+    Get the total contributions of the specified org in the last 6 months.
+    :param orgname: the name of the specified organization.
     :return: a dictionary contains information about the number of commits in the last 6 months.
     """
-    FORMAT_STRING = '%Y-%m-%dT%H:%M:%SZ'
+    repos = await fetch_repos_name(orgname, TOKEN)
+    data = {}
+    # for repo in repos:
+    #     commits = await fetch_repo_commits(orgname, repo, TOKEN)
+    #     data.update({repo: commits})
+    coroutines = [fetch_repo_commits(orgname, repo, TOKEN) for repo in repos]
+    list_commits = await asyncio.gather(*coroutines)
+    for i in range(len(repos)):
+        data.update({repos[i]: list_commits[i]})
     result = {}
-    
-    until = datetime.now(pytz.UTC)
-    temp = until
-    until = until.strftime(FORMAT_STRING)
-    since = temp.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    since = since.strftime(FORMAT_STRING)
-    commits = await fetch_repo_commit_since_until(owner, repo, since, until, TOKEN)
-    month_name = temp.strftime('%B')
-    result.update({month_name : commits})
-
-    for i in range(5): 
-        until = datetime.now(pytz.UTC)
-        since = until - relativedelta(months=(i+1))  
-        until = until - relativedelta(months=i)
-        month_name = since.strftime('%B')
-        until = until.strftime(FORMAT_STRING)
-        since = since.strftime(FORMAT_STRING)
-        commits = await fetch_repo_commit_since_until(owner, repo, since, until, TOKEN)
-        result.update({month_name : commits})
-
+    for repo in repos:
+        for month in data[repo].keys():
+            result[month] = result.get(month, 0) + data[repo][month]
     return result
+
+async def get_languages(orgname, TOKEN):
+    """
+    Get information about the user's languages.
+    :param orgname: Name of the organization.
+    :return: a dictionary contains languages and corresponding percentages
+    """
+    repos = await fetch_repos_name(orgname, TOKEN)
+    languages = {}
+    # for repo in repos:
+    #     data = await fetch_repo_languages(orgname, repo, TOKEN)
+    #     for key, value in data.items():
+    #         languages[key] = languages.get(key, 0) + value
+    coroutines = [fetch_repo_languages(orgname, repo, TOKEN) for repo in repos]
+    list_data = await asyncio.gather(*coroutines)
+    for data in list_data:
+        for key, value in data.items():
+            languages[key] = languages.get(key, 0) + value
+    total = sum(languages.values())
+    for language, byte in languages.items():
+        percent = round((byte / total) * 100, 2)
+        languages.update({language: percent})
+    return languages
+
+# import time
+# start = time.time()
+# data = asyncio.run(get_org_contributions_last_6_months('TickLabVN', DEFAULT_TOKEN))
+# print(data)
+# end = time.time()
+# print('TIME:', end - start)

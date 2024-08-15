@@ -1,5 +1,6 @@
 import requests
 import aiohttp
+import asyncio
 
 from datetime import datetime, timedelta
 TOKEN = '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'
@@ -91,12 +92,43 @@ async def get_repo_commits_by_month(user, repo, since, until, TOKEN):
     url = f"https://api.github.com/repos/{user}/{repo}/commits?since={since}&until={until}"
     return await fetch_json(url, TOKEN)
 
+# async def get_contributions_by_member(user, since, until, TOKEN):
+#     repos = await get_user_repos(user, TOKEN)
+
+#     contributions_by_member = {}
+
+#     for repo in repos:
+#         try:
+#             commits = await get_repo_commits_by_month(
+#                 user,
+#                 repo['name'],
+#                 since,
+#                 until,
+#                 TOKEN
+#             )
+#             if commits:
+#                 for commit in commits:
+#                     login = commit.get('author', {}).get('login', 'unknown')
+#                     if login not in contributions_by_member:
+#                         contributions_by_member[login] = 0
+#                     contributions_by_member[login] += 1
+#             else:
+#                 print(f"There are no commits in the repository {repo['name']}")
+#         except Exception as error:
+#             if '409' in str(error):
+#                 print(f"Conflict error for repository {repo['name']}: {error}")
+#             else:
+#                 print(f"An error occurred when retrieving commits from the repository {repo['name']}: {error}")
+
+#     return contributions_by_member
+
+
 async def get_contributions_by_member(user, since, until, TOKEN):
     repos = await get_user_repos(user, TOKEN)
 
     contributions_by_member = {}
 
-    for repo in repos:
+    async def process_repo(repo):
         try:
             commits = await get_repo_commits_by_month(
                 user,
@@ -119,10 +151,39 @@ async def get_contributions_by_member(user, since, until, TOKEN):
             else:
                 print(f"An error occurred when retrieving commits from the repository {repo['name']}: {error}")
 
+    # Tạo một danh sách các task để xử lý tất cả các repo đồng thời
+    tasks = [process_repo(repo) for repo in repos]
+    
+    # Sử dụng asyncio.gather để thực hiện tất cả các task đồng thời
+    await asyncio.gather(*tasks)
+
     return contributions_by_member
+
+
+
+
+# async def get_contributions_last_6_months(user, TOKEN):
+#     contributions_by_month = {}
+
+#     for i in range(4):
+#         end_date = datetime.now() - timedelta(days=i * 30)
+#         start_date = end_date - timedelta(days=30)
+
+#         since = start_date.isoformat()
+#         until = end_date.isoformat()
+
+#         month_name = end_date.strftime("%m/%Y")
+#         contributions_by_month[month_name] = await get_contributions_by_member(user, since, until, TOKEN)
+
+#     return contributions_by_month
+
+
+
 
 async def get_contributions_last_6_months(user, TOKEN):
     contributions_by_month = {}
+
+    tasks = []
 
     for i in range(4):
         end_date = datetime.now() - timedelta(days=i * 30)
@@ -132,6 +193,16 @@ async def get_contributions_last_6_months(user, TOKEN):
         until = end_date.isoformat()
 
         month_name = end_date.strftime("%m/%Y")
-        contributions_by_month[month_name] = await get_contributions_by_member(user, since, until, TOKEN)
+        
+        # Tạo task cho mỗi lời gọi API
+        task = asyncio.create_task(get_contributions_by_member(user, since, until, TOKEN))
+        tasks.append((month_name, task))
+
+    # Chạy tất cả các task đồng thời
+    results = await asyncio.gather(*[task for _, task in tasks])
+
+    # Gán kết quả cho contributions_by_month theo thứ tự tương ứng
+    for (month_name, _), result in zip(tasks, results):
+        contributions_by_month[month_name] = result
 
     return contributions_by_month
